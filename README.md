@@ -15,3 +15,8 @@ Igra se završava u nekom od sledećih scenarija:
 Na kraju, od rezultata se oduzima suma vrednosti neiskorišćenih slova igrača.  
 
 Projekat je rađen u programskom jeziku **C++** u QT radnom okruženju.
+
+Više o samom projektu, možete naći na narednim linkovima:
+[GitHub repozitorijum projekta](https://gitlab.com/matf-bg-ac-rs/course-rs/projects-2022-2023/10-igra-scrabble)
+[Commit sha](2d80586a9b3383277c02b6218fe8b26b54aab6ed)
+Sama analiza biće izvršena nad main granom.
