@@ -1,8 +1,4 @@
 # Analiza projekta 'Igra scrabble'
 
-GitHub repozitorijum posvećen analizi odabranog projketa u okviru kursa Verifikacija softvera. 
+GitHub repozitorijum posvećen analizi odabranog projketa u okviru kursa Verifikacija softvera.  
 🎓 Sara Živković 1071/2023
-
-## Autor 
-
-Ovo je inicijalni commit za testiranje.
