@@ -1,6 +1,6 @@
 # Analiza projekta 'Igra scrabble'
 
-GitHub repozitorijum posvećen analizi odabranog projeketa u okviru kursa Verifikacija softvera.  
+GitHub repozitorijum posvećen izradi samostalnog praktičnog seminarskog rada za potrebe kursa Verifikacija softvera na master studijama Matematičkog fakulteta u Beogradu. Praktični seminarski rad podrazumeva primenu alata za statičku i dinamičku verifikaciju softvera na izabranom studentskom projektu.  
 **Autor: Sara Živković 1071/2023**
 
 ## Opis analiziranog projekta
@@ -16,12 +16,12 @@ Na kraju, od rezultata se oduzima suma vrednosti neiskorišćenih slova igrača.
 
 Projekat je rađen u programskom jeziku **C++** u QT radnom okruženju.
 
-Više o samom projektu, možete naći na narednim linkovima:
 [GitHub repozitorijum projekta](https://gitlab.com/matf-bg-ac-rs/course-rs/projects-2022-2023/10-igra-scrabble)
 [Commit sha](2d80586a9b3383277c02b6218fe8b26b54aab6ed)  
 Sama analiza biće izvršena nad main granom.
 
 ## Spisak alata korišćenih u analizi
+Detalajn opis svakog alata kao i dobijeni zaključci nalaze se u fajlu ProjectAnalysisReport.pdf  
 
 ## Uputstvo za reprodukciju analize
 
