@@ -1,12 +1,12 @@
 ## Memcheck profajler
 
-U nastavku se nalazi uputstvo za pokretanje Memcheck profajliranje.  
-Više detalja o samom profajleru kao i rezultatima profajliranja izabranog projekta možete nači u [ProjectAnalysisReport.md](../ProjectAnalysisReport.md) dokumentu.
+U nastavku se nalazi uputstvo za pokretanje Memcheck profajliranja.  
+Više detalja o samom profajleru kao i rezultatima profajliranja izabranog projekta možete naći u [ProjectAnalysisReport.md](../ProjectAnalysisReport.md) dokumentu.
 
 Skripta koja pokreće alat je `memcheck.sh`.
 
 ### Preduslovi pokretanja
-Za profajliranje potrebno je, na mašini na kojoj se skripta pokreće, instalirati Qt framework, alat Qt Creator. kao i Valgrind alat.
+Za profajliranje potrebno je, na mašini na kojoj se skripta pokreće, instalirati Qt framework, alat Qt Creator, kao i Valgrind alat.
 
 ```bash
 sudo apt-get update
@@ -26,6 +26,6 @@ cd memcheck
 chmod +x memcheck.sh
 ./memcheck.sh
 ```
-Skripta ce izvršiti build projekta u `DEBUG` režimu i pokrenuće memcheck alat nad izvršnom datotekom. 
+Skripta ce izvršiti build projekta u `DEBUG` režimu i pokrenuće memcheck alat nad izvršnom datotekom koja je prethodno kreirana. 
 
-Izlaz alata nalazi se u direktorikumu `/memcheck` (kao i skripta) u `.out` fajlu.
+Izlaz alata nalazi se u direktorijumu `/memcheck` u `.out` fajlu.
