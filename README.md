@@ -20,7 +20,8 @@ Projekat je rađen u programskom jeziku **C++** u QT radnom okruženju.
 ## Osnovne informacije o analizi
 [GitHub repozitorijum projekta](https://gitlab.com/matf-bg-ac-rs/course-rs/projects-2022-2023/10-igra-scrabble)  
 [Commit sha](2d80586a9b3383277c02b6218fe8b26b54aab6ed)  
-Sama analiza biće izvršena nad **main** granom.  
+Sama analiza biće izvršena nad **main** granom. 
+ 
 U analizi koršćeni su sledeći alati:
 - Valgrind alati:
     - Memcheck
