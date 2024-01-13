@@ -8,7 +8,7 @@ OUTPUT_FILE="callgrind_$RANDOM.out"
 
 QMAKE=/usr/lib/qt5/bin/qmake
 
-if [ $# -lt 1 ]; then
+if [ $# -lt 0 ]; then
     echo "Greska: Nedovoljan broj argumenata. Upotreba: $0 [-a] [-k]"
     exit 1
 fi
@@ -22,14 +22,13 @@ elif [ "$1" = "-a" ]; then
     ANNOTATE=true
 else
     echo "Bice pokrenut samo alat callgrind."
-    exit 1
 fi
 
 mkdir -p ../Igra_scrabble/build && cd ../Igra_scrabble/build
 ${QMAKE} CONFIG+=debug ../Igra_Scrabble.pro > /dev/null
 
 make > /dev/null
-cd ../../cachegrind
+cd ../../callgrind
 
 valgrind --tool=callgrind --callgrind-out-file="$OUTPUT_FILE" ../Igra_scrabble/build/Igra_Scrabble
 
@@ -40,7 +39,7 @@ fi
 
 #Ako je opcija -k zadata, koristi KCacheGrind
 if [ "$KCACHEGRIND" = true ]; then
-    kcachegrind "$OUTPUT_FILE" > "kcachegrind_$OUTPUT_FILE"
+    kcachegrind "$OUTPUT_FILE"
 fi
 
 rm -rf ../Igra_scrabble/build

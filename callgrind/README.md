@@ -31,3 +31,4 @@ chmod +x callgrind.sh
 Skripta ce izvršiti build projekta u `DEBUG` režimu i pokrenuće memcheck alat nad izvršnom datotekom koja je prethodno kreirana. 
 
 Izlaz alata nalazi se u direktorijumu `/callgrind`. u  `.out` fajlovima.
+Ukoliko pokrenete skriptu sa -k opcijom, pokrenuće se KCachegrind konzola.
