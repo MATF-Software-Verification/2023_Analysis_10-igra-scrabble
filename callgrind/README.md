@@ -7,7 +7,6 @@ Skripta koja pokreće alat je `callgrind.sh`.
 
 ### Preduslovi pokretanja
 Za profajliranje potrebno je, na mašini na kojoj se skripta pokreće, instalirati Qt framework, alat Qt Creator, kao i Valgrind i KCacheGrind alate.  
-Takođe, za vizualni pristup 
 
 ```bash
 sudo apt-get update
@@ -21,7 +20,7 @@ sudo apt-get install kcachegrind
 
 ### Pokretanje
 Nakon kloniranja repozitorijuma potrebno je pozicionirati se u folder `/callgrind`.  
-Sa te lokacije možete pokrenuti skriptu. Kada pokrećete skriptu, možete koristiti opcije -a za omogućavanje callgrind_annotate i -k za omogućavanje KCacheGrind vizualizacije. Pre pokretanja skripte, potrebno je podesiti prava pristupa.
+Sa te lokacije možete pokrenuti skriptu. Kada pokrećete skriptu, možete koristiti opcije `-a` za omogućavanje `callgrind_annotate` i `-k` za omogućavanje KCacheGrind vizualizacije. Pre pokretanja skripte, potrebno je podesiti prava pristupa.
 
 ```bash
 cd callgrind
