@@ -1,6 +1,7 @@
 # Analiza projekta 'Igra scrabble'
 
 GitHub repozitorijum posvećen izradi samostalnog praktičnog seminarskog rada za potrebe kursa Verifikacija softvera na master studijama Matematičkog fakulteta u Beogradu. Praktični seminarski rad podrazumeva primenu alata za statičku i dinamičku verifikaciju softvera na izabranom studentskom projektu.  
+
 **Autor: Sara Živković 1071/2023**
 
 ## Opis analiziranog projekta
@@ -14,7 +15,7 @@ Igra se završava u nekom od sledećih scenarija:
 
 Na kraju, od rezultata se oduzima suma vrednosti neiskorišćenih slova igrača.  
 
-Projekat je rađen u programskom jeziku **C++** u QT radnom okruženju.
+Projekat je rađen u programskom jeziku **C++** u `QtCreator` radnom okruženju.
 
 
 ## Osnovne informacije o analizi
@@ -31,11 +32,11 @@ U analizi koršćeni su sledeći alati:
 - Clangd
 - Perf
 
-Detaljniji opis svakog alata nalaze se u dokumentu [ProjectAnalysisReport.md](ProjectAnalysisReport.md).
+Detaljniji opis svakog alata nalazi se u dokumentu [ProjectAnalysisReport.md](ProjectAnalysisReport.md).
 
 ## Uputstvo za reprodukciju analize
-Alati će biti pokrenuti iz terminala koristeći unapred pripremljene skripte, kao i direktno iz QtCreator okruženja.  
-Postupak pokretanja alata može se naći u README.md fajlu u okviru foldera posvećenog svakom korišćenom alatu. 
+Alati će biti pokrenuti iz terminala koristeći unapred pripremljene skripte, kao i direktno iz `QtCreator` okruženja.  
+Postupak pokretanja alata može se naći u `README.md` fajlovima u okviru foldera posvećenim svakom korišćenom alatu. 
 
 ## Zaključci
-Detaljniji opis zaključaka nakon analize svakim od alata nalaze se u dokumentu [ProjectAnalysisReport.md](ProjectAnalysisReport.md).
+Detaljniji opis zaključaka nakon analize svakim od alata nalazi se u dokumentu [ProjectAnalysisReport.md](ProjectAnalysisReport.md).
