@@ -2,6 +2,8 @@
 
 QMAKE=/usr/lib/qt5/bin/qmake
 
+set -x
+
 mkdir -p ../Igra_scrabble/build && cd ../Igra_scrabble/build
 ${QMAKE} CONFIG+=debug ../Igra_Scrabble.pro > /dev/null
 
