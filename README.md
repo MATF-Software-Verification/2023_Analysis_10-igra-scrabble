@@ -20,18 +20,22 @@ Projekat je rađen u programskom jeziku **C++** u QT radnom okruženju.
 ## Osnovne informacije o analizi
 [GitHub repozitorijum projekta](https://gitlab.com/matf-bg-ac-rs/course-rs/projects-2022-2023/10-igra-scrabble)  
 [Commit sha](2d80586a9b3383277c02b6218fe8b26b54aab6ed)  
+
 Sama analiza biće izvršena nad **main** granom. 
  
 U analizi koršćeni su sledeći alati:
 - Valgrind alati:
     - Memcheck
     - Cachegrind
-- Clang-Tidy i Clazy
+- Clang-Tidy
+- Clangd
 - Perf
 
-Detaljniji opis svakog alata kao i dobijeni zaključci nalaze se u fajlu ProjectAnalysisReport.md 
+Detaljniji opis svakog alata nalaze se u dokumentu [ProjectAnalysisReport.md](ProjectAnalysisReport.md).
 
 ## Uputstvo za reprodukciju analize
-Alati će biti pokrenuti iz terminala kao i direktno iz QtCreator okruženja. Postupak pokretanja svakog od alata može se naći u README.md fajlu u okviru foldera posvećenog konkretnom alatu. 
+Alati će biti pokrenuti iz terminala koristeći unapred pripremljene skripte, kao i direktno iz QtCreator okruženja.  
+Postupak pokretanja alata može se naći u README.md fajlu u okviru foldera posvećenog svakom korišćenom alatu. 
 
 ## Zaključci
+Detaljniji opis zaključaka nakon analize svakim od alata nalaze se u dokumentu [ProjectAnalysisReport.md](ProjectAnalysisReport.md).
