@@ -1,9 +1,11 @@
 # Izveštaj sprovedene analize
 
 Korišćeni alati:
-1. [Clang-tidy](##Clang-tidy)
-2. [Memcheck](##Memcheck)
-3. [Callgrind](##Callgrind)
+- [Clang-tidy](#clang-tidy)
+- [Valgrind alati](#valgrind)
+    - [Memcheck](#memcheck)
+    - [Callgrind](#callgrind)
+- [Perf](#perf)
 
 ## Clang-tidy
 *Clang-tidy* je alat za statičku analizu koda, deo Clang kompajlera, koji je deo LLVM projekta.
@@ -14,8 +16,8 @@ Korišćenje *clang-tidy*-a može pomoći programerima da otkriju i isprave prob
 
 Alat koristi različite provere, poput provera stila koda, bezbednosti, performansi i drugih, kako bi analizirao izvorni kod. Po potrebi, možemo uključiti ili isključiti željene provere.
 
-### Postupak
-Ovaj alat smo za analizu koristili preko QtCreator razvojnog okruženja na neke od .cpp fajlova koji čine projekat, prateći postupak pokretanja iz [README.md](clang-tidy/README.md).
+### Postupak analize
+Ovaj alat smo za analizu koristili preko QtCreator razvojnog okruženja na neke od .cpp fajlova koji čine projekat, prateći postupak pokretanja iz [README.md](clang-tidy/README.md).  
 Analizirani fajlovi: *board.cpp*, *card.cpp*, *deck.cpp*, *game.cpp*, *mainwindow.cpp*, *wildcard_dialog.cpp*. 
 
 ### Zaključci
@@ -126,10 +128,40 @@ Constants* constants = new Constants();
 delete constants;
 ```
 
-Generalno posmatrano, korišćenjem clang-tidy analize, sa odabranom konfiguracijom uspeli smo da otkrijemo dosta mesta za poboljšanje u kodu.   
+Generalno posmatrano, korišćenjem clang-tidy analize, sa odabranom konfiguracijom, uspeli smo da otkrijemo dosta mesta za poboljšanje u kodu.   
 Clang-Tidy pruža uputstva o modernim praksama u C++ programiranju, kao što su korišćenje auto, *range-based for loop* - ova i drugi saveti za pisanje bezbednijeg i modernijeg koda. Takodje, dao je korisne predloge za čitljiviji kod, rad sa niskama kao i smanjivanje rizika od grešaka povezanih sa indeksiranjem i curenjem memorije.
 
+## Valgrind
+
+Valgrind je svestran alat za dinamičku analizu mašinskog koda, snimljenog kao objektni modul ili izvršivi program. Ova platforma omogućava automatsko otkrivanje problema sa memorijom i procesima, čineći ga ključnim za otkrivanje i ispravljanje grešaka u softverskim aplikacijama.   
+Pored toga, Valgrind se može koristiti i kao alat za stvaranje novih alata, a distribucija uključuje nekoliko korisnih alata kao što su Memcheck za detekciju memorijskih grešaka, Hellgrind i DRD za detekciju grešaka u višenitnim programima, Cachegrind za optimizaciju keš memorije, Callgrind za generisanje grafa skrivene memorije i predikciju skoka, te Massif za optimizaciju korišćenja dinamičke memorije.   
+Iako Valgrind pruža izuzetno korisne informacije, analiza programa ovim alatom može rezultirati povećanjem vremena izvršavanja programa, obično između 20 i 100 puta. 
+
+U sklopu naše analize, koristićemo dva Valgrind alata: Memcheck i Callgrind.
+
 ## Memcheck
+Valgrind-ov alat Memcheck je moćan alat za analizu memorije koji pomaže identifikaciju curenja memorije, čitanje neinicijalizovane memorije i drugih grešaka vezanih za upravljanje memorijom u programima napisanim u C i C++.  
+Memcheck, kroz instrumentaciju izvršnog fajla, otkriva probleme koji mogu dovesti do nepredvidivog ponašanja programa, pružajući programerima detaljne informacije kako bi poboljšali stabilnost i pouzdanost svog koda.
+
+### Postupak analize
+Iako je moguće pokrenuti alat i iz QtCreator okruženja, Memcheck smo za analizu koristili preko terminala prateći postupak pokretanja iz [README.md](memcheck/README.md).  
+
+### Zaključci
+
+Gledajući izveštaj, konkretno posmatrajući curenje memorije  
+(Referenca: [leak_summary](memcheck/pictures/report.png)), zaključujemo da je broj definitvno izgubljenih blokova, u odnosu na ukupan broj blokova, relativno mali. 
+Većina blokova koji su izgubljeni nemaju veze sa izvornim kodom programa, već potiču iz biblioteka koje program koristi. 
+
+Jedini slučajevi gde imamo curenje memorije u izvornom kodu, jesu:  
+
+![leak.png](memcheck/pictures/leak.png)
+
+U oba slučaja, memorija je alocirana operatorom **new** u okviru **Board::Board()** konstruktora (*board.cpp*). Trebalo bi da se obezbedi da se memorija alocirana putem operatora **new** u konstruktoru **Board::Board()** pravilno dealocira, recimo implementacijom destruktora u klasi **Board**.
+
+U izvornom kodu programa nemamo nedozvoljeno oslobadjanje memorije, kao ni prosleđivanje neinicijalizovanih vrednosti sistemskim pozivima.
 
 ## Callgrind
+
+### Postupak
+### Zaključci
 
