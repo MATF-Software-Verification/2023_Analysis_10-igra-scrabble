@@ -1,4 +1,4 @@
-### Report sprovedene analize
+# Report sprovedene analize
 
 ## Clang-tidy
 *Clang-tidy* je alat za statičku analizu koda, deo Clang kompajlera, koji je deo LLVM projekta.
@@ -11,5 +11,11 @@ Alat koristi različite provere, poput provera stila koda, bezbednosti, performa
 
 Ovaj alat smo za analizu koristili preko `QtCreator` razvojnog okruženja na neke od .cpp fajlova koji čine projekat.
 
-# Zaključci
+### Zaključci
+
+## Clangd
+*Clangd* je alat koji detektuje različite vrste grešaka i upozorenja u C++ kodu, poput sintaksnih i semantičkih grešaka,
+upozorenja o kodu koji se ne koristi i slično. On omogu´cava brzu analizu te
+je zato pogodan za primenu i na velikim i kompleksnim projektima. Pruˇza
+podrˇsku za refaktorisanje koda u cilju poboljˇsanja strukture i ˇcitljivosti
 
