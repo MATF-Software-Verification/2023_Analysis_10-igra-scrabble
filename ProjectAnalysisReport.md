@@ -1,4 +1,9 @@
-# Report sprovedene analize
+# Izveštaj sprovedene analize
+
+Korišćeni alati:
+1. [Clang-tidy](##Clang-tidy)
+2. [Memcheck](##Memcheck)
+3. [Callgrind](##Callgrind)
 
 ## Clang-tidy
 *Clang-tidy* je alat za statičku analizu koda, deo Clang kompajlera, koji je deo LLVM projekta.
@@ -9,13 +14,12 @@ Korišćenje *clang-tidy*-a može pomoći programerima da otkriju i isprave prob
 
 Alat koristi različite provere, poput provera stila koda, bezbednosti, performansi i drugih, kako bi analizirao izvorni kod. Po potrebi, možemo uključiti ili isključiti željene provere.
 
-Ovaj alat smo za analizu koristili preko QtCreator razvojnog okruženja na neke od .cpp fajlova koji čine projekat.
-
 ### Postupak
-Prateći postupak pokretanja analize datog u folderu koji odgovara clang-tidy alatu, alat smo iskoristili za analizu nekih od .cpp fajlova (*board.cpp*, *card.cpp*, *deck.cpp*, *game.cpp*, *mainwindow.cpp*, *wildcard_dialog.cpp*). 
+Ovaj alat smo za analizu koristili preko QtCreator razvojnog okruženja na neke od .cpp fajlova koji čine projekat, prateći postupak pokretanja iz [README.md](clang-tidy/README.md).
+Analizirani fajlovi: *board.cpp*, *card.cpp*, *deck.cpp*, *game.cpp*, *mainwindow.cpp*, *wildcard_dialog.cpp*. 
 
 ### Zaključci
-Često upozorenje koje alat daje, jeste izbegavanje korišćenja tzv. *"magičnih brojeva"* u kodu i umesto toga predlaže zamenu konstantama i promenljivima. Recimo na primeru dela koda iz fajla *board.cpp* (snimak ekrana pronalaska alata je na lokaciji clang-tidy/findings/magic_numbers.png):  
+Često upozorenje koje alat daje, jeste izbegavanje korišćenja tzv. *"magičnih brojeva"* u kodu i umesto toga predlaže zamenu konstantama i promenljivama. Recimo, na primeru dela koda iz fajla *board.cpp* (Referenca:[magic_numbers.png](clang-tidy/findings/magic_numbers.png)):  
 
 ```c++
 if (ind2xWord)
@@ -33,9 +37,7 @@ if (WORD == "SCRABBLE")
 if (!existsWildCard)    
     score += 10;                          
 ```
-
 Poboljšanje bi moglo da izgleda ovako:
-
 ```c++
 if (ind2xWord)
     score *= 2;
@@ -74,8 +76,8 @@ Ovde smo uveli imenovane konstante bonus6, bonus7, bonus8, bonusSCRABBLE, i bonu
 Kada koristimo *imenovane konstante* umesto *"magičnih brojeva"*, zapravo pridajemo smisao ovim numeričkim vrednostima tako što im dajemo imena koja opisuju njihovu svrhu ili ulogu u programu. Ovaj pristup čini kod čitljivijim i održivijim.
 
 Takođe, jedan od čestih pronalazaka je i nedostatak *trailing return type* -a za funkcije.   
-*Trailing return types* (tipovi sa povratnom vrednošću na kraju) su moderna karakteristika C++-a koja je uvedena u C++11 i omogućava nam da deklarišimo tip povratne vrednosti funkcije nakon liste parametara koristeći sintaksu ->.  
-Ovo upozorenje spada u kategoriju "modernizacija" provera u clang-tidy alatu. Alat predlaže izmenu kako bi se kod usklađenio sa modernim praksama u C++ - u.
+*Trailing return types* (tipovi sa povratnom vrednošću na kraju) su moderna karakteristika C++ - a koja je uvedena u C++11 i omogućava nam da deklarišimo tip povratne vrednosti funkcije nakon liste parametara koristeći sintaksu ->.  
+Ovo upozorenje spada u kategoriju "modernizacija" provera u clang-tidy alatu. Alat predlaže izmenu kako bi se kod uskladio sa modernim praksama u C++ - u.
 
 Recimo, u fajlu *deck.cpp*:
 ```c++
@@ -99,4 +101,35 @@ Menjamo kod:
 ```c++
 auto *button = dynamic_cast<QPushButton*>(ui->gridLayout_Wildcard->itemAt(x)->widget());
 ```
-Ova izmena koristi **dynamic_cast** umesto **static_cast** kako bi sigurno vršila dinamičko kastovanje iz bazne klase u izvedenu klasu. Takođe koristi auto kako bi automatski odredila tip promenljive na osnovu rezultata dinamičkog kastovanja, čime se eliminiše potreba za eksplicitnim navođenjem tipa.
+Ova izmena koristi **dynamic_cast** umesto **static_cast** kako bi sigurno vršila dinamičko kastovanje iz bazne klase u izvedenu klasu. Takođe koristi **auto** kako bi automatski odredila tip promenljive na osnovu rezultata dinamičkog kastovanja, čime se eliminiše potreba za eksplicitnim navođenjem tipa.
+Generalno, u kodu imamo nedovoljno korišćenje **auto** prilikom inicijalizacije pokazivača sa new. Na taj način možemo izbeći ponovno navođenje tipa.
+
+U fajlu *game.cpp* često se javlja nepotrebna inicijalizacija niske.   
+Na primer, ovakva inicijalizacija stringa je suvišna:
+```c++
+std::string word = "";
+```
+Ako odmah nakon toga dajemo vrednost niski, kao u primeru:
+```c++
+word = "neka_vrednost";
+```
+Da bismo rešili ovo upozorenje, jednostavno treba izostaviti praznu inicijalizaciju i odmah dodeliti vrednost.
+
+Takodje u programu je na par mesta korišćena klasična **for** petlja, te nam analiza predlaže korišćenje **for each** petlje. Ovaj pristup često poboljšava čitljivost koda i smanjuje mogućnost grešaka vezanih za indekse.
+
+Na jednom mestu, u *game.cpp* imamo i potencijalno curenje memorije (Referenca: [memory_leak.png](clang-tidy/finding/memory_leak.png)).  
+Ako se promenljiva constants alocira dinamički pomoću new, trebalo bi se pobrinuti da se memorija oslobodi nakon što više nije potrebna.
+```cpp
+Constants* constants = new Constants();
+
+// Dealokacija memorije nakon upotrebe
+delete constants;
+```
+
+Generalno posmatrano, korišćenjem clang-tidy analize, sa odabranom konfiguracijom uspeli smo da otkrijemo dosta mesta za poboljšanje u kodu.   
+Clang-Tidy pruža uputstva o modernim praksama u C++ programiranju, kao što su korišćenje auto, *range-based for loop* - ova i drugi saveti za pisanje bezbednijeg i modernijeg koda. Takodje, dao je korisne predloge za čitljiviji kod, rad sa niskama kao i smanjivanje rizika od grešaka povezanih sa indeksiranjem i curenjem memorije.
+
+## Memcheck
+
+## Callgrind
+
