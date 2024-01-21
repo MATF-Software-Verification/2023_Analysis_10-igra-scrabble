@@ -11,7 +11,9 @@ Za profajliranje potrebno je, na mašini na kojoj se skripta pokreće, instalira
 ```bash
 sudo apt-get update
 sudo apt install build-essential
-sudo apt install qtcreator
+sudo apt-get install qt5-default
+sudo apt-get install libfontconfig1
+sudo apt-get qtcreator
 
 sudo apt-get install valgrind
 ```

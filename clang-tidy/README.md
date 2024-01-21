@@ -10,7 +10,9 @@ Za pokretanje analize potrebno je instalirati Qt framework, osnovne pakete i ala
 ```bash
 sudo apt-get update
 sudo apt install build-essential
-sudo apt install qtcreator
+sudo apt-get install qt5-default
+sudo apt-get install libfontconfig1
+sudo apt-get qtcreator
 ```
 Potrebno je instalirati odgovarajuću verziju clang alata (clang-format-14).  
 Poznati problem sa pokretanjem analize: https://github.com/microsoft/vscode-cpptools/issues/9574.
