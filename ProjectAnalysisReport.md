@@ -18,11 +18,12 @@ Korišćenje *clang-tidy*-a može pomoći programerima da otkriju i isprave prob
 Alat koristi različite provere, poput provera stila koda, bezbednosti, performansi i drugih, kako bi analizirao izvorni kod. Po potrebi, možemo uključiti ili isključiti željene provere.
 
 ### Postupak analize
-Ovaj alat smo za analizu koristili preko QtCreator razvojnog okruženja na neke od .cpp fajlova koji čine projekat, prateći postupak pokretanja iz [README.md](clang-tidy/README.md).  
+Ovaj alat smo za analizu koristili preko QtCreator razvojnog okruženja za neke od .cpp fajlova koji čine projekat, prateći postupak pokretanja iz [README.md](clang-tidy/README.md).  
 Analizirani fajlovi: *board.cpp*, *card.cpp*, *deck.cpp*, *game.cpp*, *mainwindow.cpp*, *wildcard_dialog.cpp*. 
 
 ### Zaključci
-Često upozorenje koje alat daje, jeste izbegavanje korišćenja tzv. *"magičnih brojeva"* u kodu i umesto toga predlaže zamenu konstantama i promenljivama. Recimo, na primeru dela koda iz fajla *board.cpp* (Referenca:[magic_numbers.png](clang-tidy/findings/magic_numbers.png)):  
+Često upozorenje koje alat daje jeste izbegavanje korišćenja tzv. *"magičnih brojeva"* u kodu i umesto toga predlaže zamenu konstantama i promenljivama.  
+Recimo, na primeru dela koda iz fajla *board.cpp* ( Referenca: [magic_numbers.png](clang-tidy/findings/magic_numbers.png) ):  
 
 ```c++
 if (ind2xWord)
@@ -76,7 +77,7 @@ if (!existsWildCard)
 ```
 Ovde smo uveli imenovane konstante bonus6, bonus7, bonus8, bonusSCRABBLE, i bonusNoWildCard kako bismo zamenili tvrdo kodirane numeričke vrednosti. Ovo čini kod čitljivijim i omogućava lako ažuriranje vrednosti bonusa u budućnosti, jer se sada vrednosti nalaze na jednom mestu u kodu. Takođe smo uveli imenovane konstante SCRABBLE_WORD i wordLength kako bismo smanjili ponovno izračunavanje dužine reči i reči "SCRABBLE".
 
-Kada koristimo *imenovane konstante* umesto *"magičnih brojeva"*, zapravo pridajemo smisao ovim numeričkim vrednostima tako što im dajemo imena koja opisuju njihovu svrhu ili ulogu u programu. Ovaj pristup čini kod čitljivijim i održivijim.
+Kada koristimo imenovane konstante umesto *"magičnih brojeva"*, zapravo pridajemo smisao ovim numeričkim vrednostima tako što im dajemo imena koja opisuju njihovu svrhu ili ulogu u programu. Ovaj pristup čini kod čitljivijim i održivijim.
 
 Takođe, jedan od čestih pronalazaka je i nedostatak *trailing return type* -a za funkcije.   
 *Trailing return types* (tipovi sa povratnom vrednošću na kraju) su moderna karakteristika C++ - a koja je uvedena u C++11 i omogućava nam da deklarišimo tip povratne vrednosti funkcije nakon liste parametara koristeći sintaksu ->.  
@@ -88,7 +89,7 @@ bool Deck::isEmpty() {
     return empty;
 }
 ```
-Menjamo sa:
+Gore navedeni kod menjamo sa:
 ```c++ 
 auto Deck::isEmpty() const -> bool {
     return empty;
@@ -104,7 +105,7 @@ Menjamo kod:
 ```c++
 auto *button = dynamic_cast<QPushButton*>(ui->gridLayout_Wildcard->itemAt(x)->widget());
 ```
-Ova izmena koristi **dynamic_cast** umesto **static_cast** kako bi sigurno vršila dinamičko kastovanje iz bazne klase u izvedenu klasu. Takođe koristi **auto** kako bi automatski odredila tip promenljive na osnovu rezultata dinamičkog kastovanja, čime se eliminiše potreba za eksplicitnim navođenjem tipa.
+Ova izmena koristi **dynamic_cast** umesto **static_cast** kako bi sigurno vršila dinamičko kastovanje iz bazne klase u izvedenu klasu. Takođe koristi **auto** kako bi automatski odredila tip promenljive na osnovu rezultata dinamičkog kastovanja, čime se eliminiše potreba za eksplicitnim navođenjem tipa.  
 Generalno, u kodu imamo nedovoljno korišćenje **auto** prilikom inicijalizacije pokazivača sa new. Na taj način možemo izbeći ponovno navođenje tipa.
 
 U fajlu *game.cpp* često se javlja nepotrebna inicijalizacija niske.   
@@ -120,8 +121,8 @@ Da bismo rešili ovo upozorenje, jednostavno treba izostaviti praznu inicijaliza
 
 Takodje u programu je na par mesta korišćena klasična **for** petlja, te nam analiza predlaže korišćenje **for each** petlje. Ovaj pristup često poboljšava čitljivost koda i smanjuje mogućnost grešaka vezanih za indekse.
 
-Na jednom mestu, u *game.cpp* imamo i potencijalno curenje memorije (Referenca: [memory_leak.png](clang-tidy/finding/memory_leak.png)).  
-Ako se promenljiva constants alocira dinamički pomoću new, trebalo bi se pobrinuti da se memorija oslobodi nakon što više nije potrebna.
+Na jednom mestu, u *game.cpp* imamo i potencijalno curenje memorije ( Referenca: [memory_leak.png](clang-tidy/findings/memory_leak.png) ).  
+Ako se promenljiva *constants* alocira dinamički pomoću new, trebalo bi se pobrinuti da se memorija oslobodi nakon što više nije potrebna.
 ```cpp
 Constants* constants = new Constants();
 
@@ -132,7 +133,7 @@ delete constants;
 Uopšteno posmatrano, primenom analize clang-tidy sa odabranom konfiguracijom, identifikovali smo brojne prilike za unapređenje u kodu. Identifikovana su mesta gde se mogu primeniti moderni pristupi u C++ programiranju, uključujući preporučene tehnike poput korišćenja auto i range-based for petlji. Ovi saveti ne samo da doprinose bezbednijem i modernijem kodu, već takođe naglašavaju strategije za poboljšanje čitljivosti, efikasnije rukovanje niskama i smanjenje potencijalnih rizika od grešaka, posebno u vezi sa indeksiranjem i upravljanjem memorijom.
 
 ## Cppcheck
-Cppcheck je alat za statičku analizu C i C++ koda, čija je osnovna uloga otkrivanje potencijalnih problema pre pokretanja nego što se programa. Pruža programerima informacije o kvaliteti koda i podstiče poboljšanje. Ovaj alat je posebno koristan za pronalaženje curenja memorije, otkrivanje neinicijaliziranih promenljivih, identifikaciju potencijalnih problema s pokazivačima, te pomoć u održavanju konzistentnosti koda. Time doprinosi efikasnijem razvojnom procesu.
+Cppcheck je alat za statičku analizu C i C++ koda, čija je osnovna uloga otkrivanje potencijalnih problema pre pokretanja programa. Pruža programerima informacije o kvalitetu njihovog koda, pa time olakšava proces poboljšanja. Ovaj alat je posebno koristan za pronalaženje curenja memorije, otkrivanje neinicijalizovanih promenljivih, identifikaciju potencijalnih problema s pokazivačima, te pomoć u održavanju konzistentnosti koda.
 
 Jednostavnost korišćenja, jasni izveštaji, mogućnost vizualizacije rezultata kao i jednostavno postavljanje pravila i filtera čine cppcheck jako korisnim alatom koji doprinosti efikasnijem procesu razvoja.
 
@@ -158,7 +159,7 @@ Na primer u fajlu *mainwindow.cpp* promenljiva *x* se koristi i u spoljašnjoj i
 
 Ovo se može izbeći promenom imena promenljivih u jednoj od dve petlje.
 
-Na par mesta, alat prikazuje da ima funkcija koje nisu nigde korišćene, kao i jednu sintaksnu grešku. 
+Na par mesta, alat prikazuje da ima funkcija koje nisu nigde korišćene, kao i jednu sintaksnu grešku:
 
 ```cpp
 #if !CATCH_ARC_ENABLED
@@ -167,7 +168,7 @@ Na par mesta, alat prikazuje da ima funkcija koje nisu nigde korišćene, kao i 
 ```
 Ako koristimo ARC (Automatic Reference Counting), možemo ukloniti liniju [pool drain];, a upravljanje *autorelease pool*-om će se automatski obavljati. 
 
-Posmatrajući sveukupnu analizu koda, primećene su određene tačke koje se mogu poboljšati. Preporučuje se izbegavanje senčenja varijabli, jasno nazivanje promenljivih i pažljiva organizacija koda kako bi se poboljšala čitljivost. Takođe, preporučuje se inicijalizacija članica klase u konstruktoru kako bi se eliminisala upozorenja o neinicijaliziranim varijablama.   
+Posmatrajući sveukupnu analizu koda, primećene su određene tačke koje se mogu poboljšati. Preporučuje se izbegavanje senčanja promenljivih, jasnije imenovanje promenljivih i pažljiva organizacija koda kako bi se poboljšala čitljivost. Takođe, preporučuje se inicijalizacija članica klase u konstruktoru kako bi se eliminisala upozorenja o neinicijalizovanim promenljivama.   
 Ova poboljšanja mogu značajno doprineti održivosti i čitljivosti koda.
 
 ## Valgrind
@@ -179,28 +180,37 @@ Iako Valgrind pruža izuzetno korisne informacije, analiza programa ovim alatom 
 U sklopu naše analize, koristićemo dva Valgrind alata: Memcheck i Callgrind.
 
 ## Memcheck
-Valgrind-ov alat Memcheck je moćan alat za analizu memorije koji pomaže identifikaciju curenja memorije, čitanje neinicijalizovane memorije i drugih grešaka vezanih za upravljanje memorijom u programima napisanim u C i C++.  
-Memcheck, kroz instrumentaciju izvršnog fajla, otkriva probleme koji mogu dovesti do nepredvidivog ponašanja programa, pružajući programerima detaljne informacije kako bi poboljšali stabilnost i pouzdanost svog koda.
+Valgrind-ov alat Memcheck je moćan alat koji pomaže u  identifikaciji curenja memorije, čitanju neinicijalizovane memorije i otkrivanju drugih grešaka vezanih za upravljanje memorijom u programima napisanim u C i C++ -u.  
+Memcheck, kroz instrumentalizaciju izvršnog fajla, otkriva probleme koji mogu dovesti do nepredvidivog ponašanja programa, pružajući programerima detaljne informacije kako bi poboljšali stabilnost i pouzdanost svog koda.
 
-### Postupak analize
+### Postupak profajliranja
 Iako je moguće pokrenuti alat i iz QtCreator okruženja, Memcheck smo za analizu koristili preko terminala prateći postupak pokretanja iz [README.md](memcheck/README.md).  
 
 ### Zaključci
 
-Gledajući izveštaj, konkretno posmatrajući curenje memorije  
-(Referenca: [leak_summary](memcheck/pictures/report.png)), zaključujemo da je broj definitvno izgubljenih blokova, u odnosu na ukupan broj blokova, relativno mali. 
+Gledajući izveštaj, konkretno posmatrajući curenje memorije ( Referenca: [leak_summary](memcheck/pictures/report.png) ), zaključujemo da je broj definitvno izgubljenih blokova, u odnosu na ukupan broj blokova, relativno mali. 
 Većina blokova koji su izgubljeni nemaju veze sa izvornim kodom programa, već potiču iz biblioteka koje program koristi. 
 
 Jedini slučajevi gde imamo curenje memorije u izvornom kodu, jesu:  
 
 ![leak.png](memcheck/pictures/leak.png)
 
-U oba slučaja, memorija je alocirana operatorom **new** u okviru **Board::Board()** konstruktora (*board.cpp*). Trebalo bi da se obezbedi da se memorija alocirana putem operatora **new** u konstruktoru **Board::Board()** pravilno dealocira, recimo implementacijom destruktora u klasi **Board**.
+U oba slučaja, memorija je alocirana operatorom **new** u okviru **Board::Board()** konstruktora ( *board.cpp* fajl ). Trebalo bi da se obezbedi da se memorija alocirana putem operatora **new** u konstruktoru **Board::Board()** pravilno dealocira, recimo implementacijom destruktora u klasi **Board**.
 
 U izvornom kodu programa nemamo nedozvoljeno oslobadjanje memorije, kao ni prosleđivanje neinicijalizovanih vrednosti sistemskim pozivima.
 
 ## Callgrind
 
-### Postupak
-### Zaključci
+*Callgrind* je alat koji generiše listu poziva funkcija korisničkog programa u vidu grafa. U osnovnim podešavanjima
+sakupljeni podaci sastoje se od broja izvršenih instrukcija, njihov odnos sa linijom u izvršnom kodu, odnos pozi-
+vaoc/pozvan izmedu funkcija, kao i broj takvih poziva.  
+Ovo programerima pomaže identifikovanje tačaka usporenja i optimizaciju kritičnih delova koda.
 
+Program *callgrind annotate* na osnovu generisanog izveštaja od strane *callgrind*-a prikazuje listu funkcija.
+Za grafičku vizuelizaciju koristimo dodatni alat *KCachegrind*, koji olakšava navigaciju ukoliko *callgrind* napravi veliku količinu podataka.
+
+### Postupak profajliranja
+
+Callgrind smo koristili preko terminala prateći postupak pokretanja iz [README.md](callgrind/README.md).  
+
+### Zaključci
