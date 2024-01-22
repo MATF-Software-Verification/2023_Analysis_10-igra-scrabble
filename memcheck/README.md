@@ -6,7 +6,7 @@ Više detalja o samom profajleru kao i rezultatima profajliranja izabranog proje
 Skripta koja pokreće alat je `memcheck.sh`.
 
 ### Preduslovi pokretanja
-Za profajliranje potrebno je, na mašini na kojoj se skripta pokreće, instalirati Qt framework, alat QtCreator, kao i Valgrind alat.
+Za profajliranje potrebno je, na mašini na kojoj se skripta pokreće, instalirati Qtframework, alat QtCreator, kao i Valgrind alat.
 
 ```bash
 sudo apt-get update
@@ -18,9 +18,8 @@ sudo apt-get qtcreator
 sudo apt-get install valgrind
 ```
 
-
 ### Pokretanje
-Nakon kloniranja repozitorijuma potrebno je pozicionirati se u folder `/memcheck`.  
+Potrebno je pozicionirati se u folder `/memcheck`.  
 Sa te lokacije, nakon što podesite prava pristupa, prvo pokrećete skriptu `build_memcheck.sh` koja će izgraditi projekat, a zatim skriptu `memcheck.sh` koja pokreće sam alat. Kada smo odradili sve potrebne analize, pokrećemo skriptu `clean_memcheck.sh` koja će ukloniti sve nepotrebne fajlove.
 
 ```bash
@@ -30,7 +29,7 @@ chmod +x build_memcheck.sh
 chmod +x memcheck.sh
 chmod +x clean_memcheck.sh
 
-./build_memcheck.
+./build_memcheck
 ./memcheck.sh
 
 ...
@@ -39,4 +38,4 @@ chmod +x clean_memcheck.sh
 ```
 Skripte ce izvršiti build projekta u `DEBUG` režimu i pokrenuće memcheck alat nad izvršnom datotekom koja je prethodno kreirana. 
 
-Izlaz alata nalazi se u direktorijumu `/memcheck` u `.out` fajlu.
+Rezultat profajliranja nalazi se u direktorijumu `/memcheck` u `.out` fajlu.

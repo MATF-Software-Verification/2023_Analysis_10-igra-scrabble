@@ -24,19 +24,21 @@ Projekat je rađen u programskom jeziku **C++** u `QtCreator` radnom okruženju.
 
 Sama analiza biće izvršena nad **main** granom. 
  
-U analizi koršćeni su sledeći alati:
+U analizi su koršćeni sledeći alati:
+
+- Alati za statičku analizu:
+    - Clang-Tidy
+    - Cppcheck
 - Valgrind alati:
     - Memcheck
     - Cachegrind
-- Clang-Tidy
-- Clangd
 - Perf
 
 Detaljniji opis svakog alata nalazi se u dokumentu [ProjectAnalysisReport.md](ProjectAnalysisReport.md).
 
 ## Uputstvo za reprodukciju analize
 Alati će biti pokrenuti iz terminala koristeći unapred pripremljene skripte, kao i direktno iz `QtCreator` okruženja.  
-Postupak pokretanja alata može se naći u `README.md` fajlovima u okviru foldera posvećenim svakom korišćenom alatu. 
+Postupak pokretanja alata može se naći u `README.md` fajlovima u okviru foldera posvećenom svakom korišćenom alatu. 
 
 ## Zaključci
 Detaljniji opis zaključaka nakon analize svakim od alata nalazi se u dokumentu [ProjectAnalysisReport.md](ProjectAnalysisReport.md).

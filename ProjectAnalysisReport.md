@@ -2,6 +2,7 @@
 
 Korišćeni alati:
 - [Clang-tidy](#clang-tidy)
+- [Cppcheck](#cppcheck)
 - [Valgrind alati](#valgrind)
     - [Memcheck](#memcheck)
     - [Callgrind](#callgrind)
@@ -128,8 +129,46 @@ Constants* constants = new Constants();
 delete constants;
 ```
 
-Generalno posmatrano, korišćenjem clang-tidy analize, sa odabranom konfiguracijom, uspeli smo da otkrijemo dosta mesta za poboljšanje u kodu.   
-Clang-Tidy pruža uputstva o modernim praksama u C++ programiranju, kao što su korišćenje auto, *range-based for loop* - ova i drugi saveti za pisanje bezbednijeg i modernijeg koda. Takodje, dao je korisne predloge za čitljiviji kod, rad sa niskama kao i smanjivanje rizika od grešaka povezanih sa indeksiranjem i curenjem memorije.
+Uopšteno posmatrano, primenom analize clang-tidy sa odabranom konfiguracijom, identifikovali smo brojne prilike za unapređenje u kodu. Identifikovana su mesta gde se mogu primeniti moderni pristupi u C++ programiranju, uključujući preporučene tehnike poput korišćenja auto i range-based for petlji. Ovi saveti ne samo da doprinose bezbednijem i modernijem kodu, već takođe naglašavaju strategije za poboljšanje čitljivosti, efikasnije rukovanje niskama i smanjenje potencijalnih rizika od grešaka, posebno u vezi sa indeksiranjem i upravljanjem memorijom.
+
+## Cppcheck
+Cppcheck je alat za statičku analizu C i C++ koda, čija je osnovna uloga otkrivanje potencijalnih problema pre pokretanja nego što se programa. Pruža programerima informacije o kvaliteti koda i podstiče poboljšanje. Ovaj alat je posebno koristan za pronalaženje curenja memorije, otkrivanje neinicijaliziranih promenljivih, identifikaciju potencijalnih problema s pokazivačima, te pomoć u održavanju konzistentnosti koda. Time doprinosi efikasnijem razvojnom procesu.
+
+Jednostavnost korišćenja, jasni izveštaji, mogućnost vizualizacije rezultata kao i jednostavno postavljanje pravila i filtera čine cppcheck jako korisnim alatom koji doprinosti efikasnijem procesu razvoja.
+
+### Postupak analize
+Cppcheck smo za analizu koristili preko terminala prateći postupak pokretanja iz [README.md](cppcheck/README.md).  
+
+### Zaključci
+
+Alat nam daje do znanja da na par mesta u kodu imamo neinicijalizovane promenjive u konstruktoru. 
+Korisna funkcionalnost HTML izveštaja je povezivanje prijavljenog upozorenja sa tačnim mestom u kodu gde je isto pronađeno.
+Recimo, klikom na .cpp fajl u kom je pronađena greška `Member variable 'CustomButton_Box::coordinate_x' is not initialized in the constructor.` dobijamo:
+
+![](cppcheck/pictures/uninitialized.png)
+
+Takođe, alat nam sugeriše da možemo smanjiti opseg pojedinih varijabli. Umesto definisanja dve varijable u istoj deklaraciji, možemo ih definisati odvojeno ako se koriste u različitim delovima koda, ili kasnije u kodu, kao npr u fajlu *deck.cpp*:
+
+![](cppcheck/pictures/scope.png)
+
+Često upozorenje je i tzv. *"senčanje"(shadowing)* promenljivih. Javlja se kada imamo dve promenljive s istim imenom u istom opsegu, što može dovesti do nesporazuma u čitanju i održavanju koda. 
+Na primer u fajlu *mainwindow.cpp* promenljiva *x* se koristi i u spoljašnjoj i u unutrašnjoj petlji, te dolazi do njenog senčanja:
+
+![](cppcheck/pictures/shadowing.png)
+
+Ovo se može izbeći promenom imena promenljivih u jednoj od dve petlje.
+
+Na par mesta, alat prikazuje da ima funkcija koje nisu nigde korišćene, kao i jednu sintaksnu grešku. 
+
+```cpp
+#if !CATCH_ARC_ENABLED
+    [pool drain]; <--- syntax error
+#endif
+```
+Ako koristimo ARC (Automatic Reference Counting), možemo ukloniti liniju [pool drain];, a upravljanje *autorelease pool*-om će se automatski obavljati. 
+
+Posmatrajući sveukupnu analizu koda, primećene su određene tačke koje se mogu poboljšati. Preporučuje se izbegavanje senčenja varijabli, jasno nazivanje promenljivih i pažljiva organizacija koda kako bi se poboljšala čitljivost. Takođe, preporučuje se inicijalizacija članica klase u konstruktoru kako bi se eliminisala upozorenja o neinicijaliziranim varijablama.   
+Ova poboljšanja mogu značajno doprineti održivosti i čitljivosti koda.
 
 ## Valgrind
 
