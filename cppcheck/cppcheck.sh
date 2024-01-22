@@ -1,11 +1,11 @@
-#!/usr/bin/bash
+#!/bin/bash
 
 echo "Pokrecem cppcheck staticku analizu..."
 
-## Run Cppcheck on the source code
-cppcheck --quiet --enable=all --suppress=missingInclude --output-file="cppcheck_$RANDOM.txt"  ../Igra_scrabble
+cppcheck --quiet --enable=all --suppress=missingInclude --output-file="cppcheck_$RANDOM.txt" ../Igra_scrabble
 
-echo "Analiza zavrsena!"
-
-
-
+if [ $? -eq 0 ]; then
+    echo "Analiza je uspesno zavrsena!"
+else
+    echo "Greska: Cppcheck analiza nije uspela."
+fi
