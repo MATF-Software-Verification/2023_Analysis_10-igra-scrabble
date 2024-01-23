@@ -204,9 +204,9 @@ U izvornom kodu programa nemamo nedozvoljeno oslobadjanje memorije, kao ni prosl
 *Callgrind* je alat koji generiše listu poziva funkcija korisničkog programa u vidu grafa. U osnovnim podešavanjima
 sakupljeni podaci sastoje se od broja izvršenih instrukcija, njihov odnos sa linijom u izvršnom kodu, odnos pozi-
 vaoc/pozvan izmedu funkcija, kao i broj takvih poziva.  
-Ovo programerima pomaže identifikovanje tačaka usporenja i optimizaciju kritičnih delova koda.
+Ove informacije mogu biti korisne za pronalaženje tačnih mesta u kodu gde se događa najveće trošenje resursa, pomažući nam u identifikaciji potencijalnih mesta za optimizaciju.
 
-Program *callgrind annotate* na osnovu generisanog izveštaja od strane *callgrind*-a prikazuje listu funkcija.
+Program *callgrind annotate* na osnovu generisanog izveštaja od strane *callgrind*-a vrši interpretaciju i stvara čitljiv prikaz koji olakšava identifikaciju delova koda koji troše najviše resursa. Izveštaj se prikazuje u obliku anotiranog izvornog koda s dodatnim informacijama o troškovima izvršavanja na svakoj liniji.
 Za grafičku vizuelizaciju koristimo dodatni alat *KCachegrind*, koji olakšava navigaciju ukoliko *callgrind* napravi veliku količinu podataka.
 
 ### Postupak profajliranja
@@ -214,3 +214,13 @@ Za grafičku vizuelizaciju koristimo dodatni alat *KCachegrind*, koji olakšava 
 Callgrind smo koristili preko terminala prateći postupak pokretanja iz [README.md](callgrind/README.md).  
 
 ### Zaključci
+
+Najviše zaključaka možemo dobiti posmatrajući prikaz preko KCachegrind-a.   
+
+![](callgrind/KCacheGrind/full_report.png)
+
+Zanimaju nas funkcije koje se najviše puta pozivaju. Na levoj strani se nalaze informacije o broju pozivanja svake funkcije i broju instrukcija koje je zahtevalo njeno izvršavanje, samostalno i uključujući izvršavanja drugih funkcija koje je pozivala. Na desnoj strani možemo izabrati opciju *All Callers* i videćemo koje sve funkcije su pozivale funkciju koja nas zanima. Takodje možemo dobiti i graf poziva funkcije opcijom *Call Graph*. [Primer](callgrind/KCacheGrind/full_report.png).
+
+Na osnovu posmatranja izveštaja, opšti utisak je da nema velikog broja poziva funkcija u delu koji je implementiran od strane programera ovog projekta.
+
+## Perf
