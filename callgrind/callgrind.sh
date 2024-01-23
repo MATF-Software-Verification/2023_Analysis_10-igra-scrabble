@@ -26,11 +26,11 @@ fi
 
 echo "Pokrecem callgrind analizu..."
 
-valgrind --tool=callgrind --callgrind-out-file="$OUTPUT_FILE" ../Igra_scrabble/build/Igra_Scrabble
+valgrind --tool=callgrind --quiet --callgrind-out-file="$OUTPUT_FILE" ../Igra_scrabble/build/Igra_Scrabble
 
 # Ako je opcija -a zadata, koristi callgrind_annotate
 if [ "$ANNOTATE" = true ]; then
-    echo "Pokrecem aalt callgrind annotate..."
+    echo "Pokrecem alat callgrind annotate..."
     callgrind_annotate "$OUTPUT_FILE" > "annotate_$OUTPUT_FILE"
 fi
 #Ako je opcija -k zadata, koristi KCacheGrind

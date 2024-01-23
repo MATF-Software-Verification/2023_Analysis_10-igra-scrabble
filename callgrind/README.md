@@ -37,4 +37,3 @@ Skripta ce izvršiti build projekta u `DEBUG` režimu i pokrenuće memcheck alat
 
 Izlaz alata nalazi se u direktorijumu `/callgrind`. u  `.out` fajlovima.
 Ukoliko pokrenete skriptu sa -k opcijom, pokrenuće se KCachegrind konzola.
-U folderu `KCacheGrind/` su neki od snimaka ekrana konzole.
