@@ -24,22 +24,17 @@ else
     echo "Bice pokrenut samo alat callgrind."
 fi
 
-mkdir -p ../Igra_scrabble/build && cd ../Igra_scrabble/build
-${QMAKE} CONFIG+=debug ../Igra_Scrabble.pro > /dev/null
-
-make > /dev/null
-cd ../../callgrind
+echo "Pokrecem callgrind analizu..."
 
 valgrind --tool=callgrind --callgrind-out-file="$OUTPUT_FILE" ../Igra_scrabble/build/Igra_Scrabble
 
 # Ako je opcija -a zadata, koristi callgrind_annotate
 if [ "$ANNOTATE" = true ]; then
+    echo "Pokrecem aalt callgrind annotate..."
     callgrind_annotate "$OUTPUT_FILE" > "annotate_$OUTPUT_FILE"
 fi
-
 #Ako je opcija -k zadata, koristi KCacheGrind
 if [ "$KCACHEGRIND" = true ]; then
+    echo "Pokrecem alat KCacheGrind..."
     kcachegrind "$OUTPUT_FILE"
 fi
-
-rm -rf ../Igra_scrabble/build

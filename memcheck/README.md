@@ -29,7 +29,7 @@ chmod +x build_memcheck.sh
 chmod +x memcheck.sh
 chmod +x clean_memcheck.sh
 
-./build_memcheck
+./build_memcheck.sh
 ./memcheck.sh
 
 ...
