@@ -2,7 +2,7 @@
 
 set -xe
 
-sudo perf record -F 99 -a -g -- ../Igra_scrabble/build/Igra_Scrabble
+sudo perf record -F 99 -a -g -- sleep 20
 sudo perf report
 sudo perf script -i perf.data > perf.txt
 
