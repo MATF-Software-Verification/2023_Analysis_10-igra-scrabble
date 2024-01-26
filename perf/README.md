@@ -6,17 +6,13 @@ Više detalja o samom profajleru kao i rezultatima profajliranja izabranog proje
 Skripta koja pokreće alat je `perf.sh`.
 
 ### Preduslovi pokretanja
-Za profajliranje potrebno je, na mašini na kojoj se skripta pokreće, instalirati Qt framework, alat Qt Creator, kao i Perf alat.  
+Za profajliranje potrebno je, na mašini na kojoj se skripta pokreće, instalirati perf alat. 
+Za pokretanje FlameGraph-a koristićemo dodati submodul (https://github.com/brendangregg/FlameGraph.git)
 
 ```bash
-sudo apt-get update
-sudo apt install build-essential
-sudo apt install qtcreator
-
-sudo apt-get install valgrind
-sudo apt-get install kcachegrind
+sudo apt-get install linux-tools-$(uname -r)
 ```
-
+Ova komanda instalira linux-tools paket za trenutnu verziju jezgra ($(uname -r)), što takođe uključuje perf.
 
 ### Pokretanje
 Nakon kloniranja repozitorijuma potrebno je pozicionirati se u folder `/perf`.  

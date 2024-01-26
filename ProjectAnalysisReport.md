@@ -202,8 +202,7 @@ U izvornom kodu programa nemamo nedozvoljeno oslobadjanje memorije, kao ni prosl
 ## Callgrind
 
 *Callgrind* je alat koji generiše listu poziva funkcija korisničkog programa u vidu grafa. U osnovnim podešavanjima
-sakupljeni podaci sastoje se od broja izvršenih instrukcija, njihov odnos sa linijom u izvršnom kodu, odnos pozi-
-vaoc/pozvan izmedu funkcija, kao i broj takvih poziva.  
+sakupljeni podaci sastoje se od broja izvršenih instrukcija, njihov odnos sa linijom u izvršnom kodu, odnos pozivaoc/pozvan između funkcija, kao i broj takvih poziva.  
 Ove informacije mogu biti korisne za pronalaženje tačnih mesta u kodu gde se događa najveće trošenje resursa, pomažući nam u identifikaciji potencijalnih mesta za optimizaciju.
 
 Program *callgrind annotate* na osnovu generisanog izveštaja od strane *callgrind*-a vrši interpretaciju i stvara čitljiv prikaz koji olakšava identifikaciju delova koda koji troše najviše resursa. Izveštaj se prikazuje u obliku anotiranog izvornog koda s dodatnim informacijama o troškovima izvršavanja na svakoj liniji.
@@ -224,3 +223,15 @@ Zanimaju nas funkcije koje se najviše puta pozivaju. Na levoj strani se nalaze 
 Na osnovu posmatranja izveštaja, opšti utisak je da nema velikog broja poziva funkcija u delu koji je implementiran od strane programera ovog projekta.
 
 ## Perf
+Alat *perf* predstavlja moćan alat za analizu performansi na Linux sistemima. Ovaj alat omogućava programerima da analiziraju performanse njihovog koda kako bi identifikovali potencijalne uzroke sporosti ili resurskih problema.  
+Glavna upotreba alata Perf je identifikacija i eliminacija uskih grla u performansama softverskog sistema. Kroz analizu podataka o vremenu izvršavanja, programeri mogu pronaći delove koda koji zahtevaju optimizaciju, kao i lokacije gde se resursi (CPU, memorija, disk itd.) troše neefikasno.  
+
+
+U kombinaciji sa alatom *perf* koristi se često *FlameGraph* - moćan vizuelni alat. FlameGraph pruža intuitivan prikaz vremena izvršavanja različitih delova koda u obliku "*plamenog grafa*". Ovaj grafički prikaz olakšava identifikaciju glavnih uzroka usporenja i optimizaciju koda.
+Kada se koristi u vezi sa perf alatom, FlameGraph pruža detaljan uvid u profilisanje performansi, omogućavajući programerima da brzo identifikuju gde se resursi troše i koje funkcije uzimaju najviše vremena tokom izvršavanja programa.
+
+### Postupak profajliranja
+Perf smo za analizu koristili preko terminala prateći postupak pokretanja iz [README.md](perf/README.md).  
+
+### Zaključci
+

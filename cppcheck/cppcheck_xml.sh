@@ -12,7 +12,8 @@ if [ $? -eq 0 ]; then
     cppcheck-htmlreport --file=output.xml --report-dir=report
 
     if [ $? -eq 0 ]; then
-        echo "HTML izvestaj je generisan, otvorite report/index.html fajl"
+        echo "HTML izvestaj je generisan, otvoramo report/index.html fajl"
+        firefox report/index.html
     else
         echo "Greska pri generisanju HTML izvestaja."
     fi
