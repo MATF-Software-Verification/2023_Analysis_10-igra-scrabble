@@ -1,6 +1,7 @@
 # Analiza projekta 'Igra scrabble'
 
-GitHub repozitorijum posvećen izradi samostalnog praktičnog seminarskog rada za potrebe kursa Verifikacija softvera na master studijama Matematičkog fakulteta u Beogradu. Praktični seminarski rad podrazumeva primenu alata za statičku i dinamičku verifikaciju softvera na izabranom studentskom projektu.  
+GitHub repozitorijum posvećen izradi samostalnog praktičnog seminarskog rada za potrebe kursa Verifikacija softvera na master studijama Matematičkog fakulteta u Beogradu.   
+Praktični seminarski rad podrazumeva primenu alata za statičku i dinamičku verifikaciju softvera na izabranom studentskom projektu.  
 
 **Autor: Sara Živković 1071/2023**
 
@@ -41,4 +42,4 @@ Alati će biti pokrenuti iz terminala koristeći unapred pripremljene skripte, k
 Postupak pokretanja alata može se naći u `README.md` fajlovima u okviru foldera posvećenom svakom korišćenom alatu. 
 
 ## Zaključci
-Detaljniji opis zaključaka nakon analize svakim od alata nalazi se u dokumentu [ProjectAnalysisReport.md](ProjectAnalysisReport.md).
+Detaljniji opis zaključaka nakon analize svakim od alata kao i sveukupan zaključak mogu se naći u dokumentu [ProjectAnalysisReport.md](ProjectAnalysisReport.md).

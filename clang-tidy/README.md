@@ -29,7 +29,7 @@ sudo apt install clang-format-14
 1. Otvorite QtCreator:
 Pokrenite QtCreator, otvorite i izgradite projekat u Debug režimu, klikom na zelenu strelicu u donjem levom uglu.
 
-2. U fajlu `IgraScrabble.pro` dodajte narednu liniju koda (tek nakon što ste pokrenuli projekat):
+2. U fajlu `IgraScrabble.pro` dodajte narednu liniju koda (nakon što ste izgradili projekat):
 
 ```bash
 INCLUDEPATH += /usr/lib/llvm-14/lib/clang/14.0.6/include
@@ -37,7 +37,8 @@ INCLUDEPATH += /usr/lib/llvm-14/lib/clang/14.0.6/include
 
 3. Otvorite .cpp datoteke u kojima želite izvršiti clang-tidy analizu.
 
-4. Idite na meni *Tools* -> *Options* -> *Analyzer*. U delu *Run Options* izabraćemo *Manage* opciju.   
+4. Idite na meni *Tools* -> *Options* -> *Analyzer*.  
+U delu *Run Options* izabraćemo *Manage* opciju.   
 Kopirajte *Clang-Tidy thorough checks [built-in]* i uključite ili isključite opcije za analizu koje želite.   
 U našem slučaju, uključena je i opcija za statičku analizu. Kliknite na *OK*.
 
@@ -45,7 +46,7 @@ U našem slučaju, uključena je i opcija za statičku analizu. Kliknite na *OK*
 
 3. Kliknite na *Analyze* u glavnom meniju QtCreatora.
 
-4. Izaberite *Clang-Tidy and Clazy..* iz padajućeg menija:
+4. Izaberite *Clang-Tidy and Clazy...* iz padajućeg menija:
         
 5. Izaćiće vam prozor za izbor .cpp fajlova koje želite analizirati. 
 

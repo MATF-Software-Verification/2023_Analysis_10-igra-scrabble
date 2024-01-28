@@ -214,7 +214,7 @@ Callgrind smo koristili preko terminala prateći postupak pokretanja iz [README.
 
 ### Zaključci
 
-Najviše zaključaka možemo dobiti posmatrajući prikaz preko KCachegrind-a.   
+Najviše zaključaka možemo dobiti posmatrajući vizualizaciju preko KCachegrind-a.   
 
 ![](callgrind/KCacheGrind/full_report.png)
 
@@ -226,14 +226,42 @@ Na osnovu posmatranja izveštaja, opšti utisak je da nema velikog broja poziva 
 Alat *perf* predstavlja moćan alat za analizu performansi na Linux sistemima. Ovaj alat omogućava programerima da analiziraju performanse njihovog koda kako bi identifikovali potencijalne uzroke sporosti ili resurskih problema.  
 Glavna upotreba alata Perf je identifikacija i eliminacija uskih grla u performansama softverskog sistema. Kroz analizu podataka o vremenu izvršavanja, programeri mogu pronaći delove koda koji zahtevaju optimizaciju, kao i lokacije gde se resursi (CPU, memorija, disk itd.) troše neefikasno.  
 
-
 U kombinaciji sa alatom *perf* koristi se često *FlameGraph* - moćan vizuelni alat. FlameGraph pruža intuitivan prikaz vremena izvršavanja različitih delova koda u obliku "*plamenog grafa*".   
 Ovaj grafički prikaz olakšava identifikaciju glavnih uzroka usporenja i optimizaciju koda.
 Kada se koristi u vezi sa perf alatom, FlameGraph pruža detaljan uvid u profilisanje performansi, omogućavajući programerima da brzo identifikuju gde se resursi troše i koje funkcije uzimaju najviše vremena tokom izvršavanja programa.
 
 ### Postupak profajliranja
 Perf smo za analizu koristili preko terminala prateći postupak pokretanja iz [README.md](perf/README.md).  
-Za vizuelizaciju podataka dobijenih naredbom `perf report` koristićemo gore pomenuti "*plameni graf*". Dijagram prikazuje populaciju uzoraka na x osi, a dubinu steka na y osi. Svaka funkcija je jedan pravougaonik, širine relativne broju uzoraka. 
+
+Perf se može koristiti za prikupljanje profila (sampling) na nivou niti, procesa ili CPU kroz komande `record`, `report` i `annotate`. Profili će podrazumevao biti sačuvani u fajlu `perf.data` i mogu biti analizirani koristeći komande `report` i `annotate`. Upravo ćemo ovu funkcionalnost iskoristiti u našoj analizi.
+
+Za vizuelizaciju podataka dobijenih naredbom `perf report` koristićemo gore pomenuti "*plameni graf*".
 
 ### Zaključci
+Na slici ispod možemo videti rezultat poziva:
+```bash
+sudo perf record --call-graph dwarf ../Igra_scrabble/build/Igra_Scrabble
+sudo perf report 
+```
+Koristili smo `perf record` komandu sa opcijom `--call-graph dwarf` da bi generisali graf poziva koji prikazuje kako se funkcije pozivaju međusobno.  
 
+![Perf izvestaj](perf/pictures/perf.png)
+
+Kolona "*Self*" prikazuje procenat vremena provedenog direktno u trenutnoj funkciji u odnosu na ukupno vreme izvršavanja programa.  
+Prema izveštaju nemamo funkciju koja preveliki procenat vremena troše u svom sopstvenom kontekstu.  
+
+U koloni "*Children*" vidimo procente koji ukazuju na procentualni udeo vremena provedenog u pozivanim funkcijama u odnosu na ukupno vreme provedeno u trenutnoj funkciji. Ova vrednost prikazuje koliki je doprinos pozvanih funkcija ukupnom vremenu provedenom u trenutnoj funkciji.  
+Gledajući izveštaj, očekivano je da je broj izvršavanje dece funkcije *main* najveći. Takodje, postoji još par funkcija gde se može razmotriti optimizacija broja poziva, medjutim uglavnom je prijavljeno ponašanje u skladu sa funkcionalnostima.
+
+Dijagram prikazuje populaciju uzoraka na x osi, a dubinu steka na y osi. Svaka funkcija je jedan pravougaonik, širine relativne broju uzoraka. 
+
+![Flame graph](perf/pictures/flame_graph.png)
+
+
+## Zaključak
+
+Kroz analizu projekta i posmatranje svih pronalaska upotrebljenih alata opšti zaključak je da u projektu nisu pronađeni veći propusti koji mogu značajno uticati na njegovu funkcionalnost. 
+
+Treba istaći koliko je primena alata za verifikaciju važan deo razvoja softvera.   
+Kroz jednostavnu integraciju ovih alata u projekat, identifikujemo greške kao što su curenje memorije, smanjena čitljivost i redudantnost koda, koje u nekim scenarijima mogu imati ozbiljne posledice.  
+Redovno testiranje tokom procesa programiranja ima ključnu ulogu u smanjenju verovatnoće pojave grešaka.
