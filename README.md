@@ -15,7 +15,7 @@ Igra se završava u nekom od sledećih scenarija:
 
 Na kraju, od rezultata se oduzima suma vrednosti neiskorišćenih slova igrača.  
 
-Projekat je rađen u programskom jeziku **C++** u `QtCreator5` radnom okruženju.
+Projekat je rađen u programskom jeziku **C++** u `QtCreator` radnom okruženju.
 
 
 ## Osnovne informacije o analizi

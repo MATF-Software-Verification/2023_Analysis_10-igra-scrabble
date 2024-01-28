@@ -227,11 +227,13 @@ Alat *perf* predstavlja moćan alat za analizu performansi na Linux sistemima. O
 Glavna upotreba alata Perf je identifikacija i eliminacija uskih grla u performansama softverskog sistema. Kroz analizu podataka o vremenu izvršavanja, programeri mogu pronaći delove koda koji zahtevaju optimizaciju, kao i lokacije gde se resursi (CPU, memorija, disk itd.) troše neefikasno.  
 
 
-U kombinaciji sa alatom *perf* koristi se često *FlameGraph* - moćan vizuelni alat. FlameGraph pruža intuitivan prikaz vremena izvršavanja različitih delova koda u obliku "*plamenog grafa*". Ovaj grafički prikaz olakšava identifikaciju glavnih uzroka usporenja i optimizaciju koda.
+U kombinaciji sa alatom *perf* koristi se često *FlameGraph* - moćan vizuelni alat. FlameGraph pruža intuitivan prikaz vremena izvršavanja različitih delova koda u obliku "*plamenog grafa*".   
+Ovaj grafički prikaz olakšava identifikaciju glavnih uzroka usporenja i optimizaciju koda.
 Kada se koristi u vezi sa perf alatom, FlameGraph pruža detaljan uvid u profilisanje performansi, omogućavajući programerima da brzo identifikuju gde se resursi troše i koje funkcije uzimaju najviše vremena tokom izvršavanja programa.
 
 ### Postupak profajliranja
 Perf smo za analizu koristili preko terminala prateći postupak pokretanja iz [README.md](perf/README.md).  
+Za vizuelizaciju podataka dobijenih naredbom `perf report` koristićemo gore pomenuti "*plameni graf*". Dijagram prikazuje populaciju uzoraka na x osi, a dubinu steka na y osi. Svaka funkcija je jedan pravougaonik, širine relativne broju uzoraka. 
 
 ### Zaključci
 

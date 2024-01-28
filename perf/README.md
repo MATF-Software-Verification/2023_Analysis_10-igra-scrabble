@@ -16,7 +16,10 @@ Ova komanda instalira linux-tools paket za trenutnu verziju jezgra ($(uname -r))
 
 ### Pokretanje
 Nakon kloniranja repozitorijuma potrebno je pozicionirati se u folder `/perf`.
-Sa te lokacije, nakon što podesite prava pristupa, prvo pokrećete skriptu `build_perf.sh` koja će izgraditi projekat, a zatim skriptu `perf.sh` koja pokreće sam alat. Kada smo odradili sve potrebne analize i eventaulno pokrenuli `flame_graph.sh` za pravljenje grafa, pokrećemo skriptu `clean_perf.sh` koja će ukloniti sve nepotrebne fajlove.  
+Sa te lokacije, nakon što podesite prava pristupa, prvo pokrećete skriptu `build_perf.sh` koja će izgraditi projekat, a zatim skriptu `perf.sh` koja pokreće sam alat.   
+Kada smo odradili sve potrebne analize možemo pokrenuti `flame_graph.sh` za pravljenje grafa i prikaz u Firefox pregledaču.  
+  
+Na kraju pokrećemo skriptu `clean_perf.sh` koja će ukloniti sve nepotrebne fajlove.  
 
 ```bash
 cd perf
@@ -34,5 +37,3 @@ chmod +x clean_perf.sh
 ./clean_perf.sh
 ```
 Skripte ce izvršiti build projekta u `DEBUG` režimu i pokrenuće perf alat nad izvršnom datotekom koja je prethodno kreirana. 
-
-#Izlaz alata nalazi se u direktorijumu `/perf`. u  `.out` fajlovima.
