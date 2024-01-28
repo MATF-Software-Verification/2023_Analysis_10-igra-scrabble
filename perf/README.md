@@ -16,7 +16,7 @@ Ova komanda instalira linux-tools paket za trenutnu verziju jezgra ($(uname -r))
 
 ### Pokretanje
 Nakon kloniranja repozitorijuma potrebno je pozicionirati se u folder `/perf`.
-Sa te lokacije, nakon što podesite prava pristupa, prvo pokrećete skriptu `build_perf.sh` koja će izgraditi projekat u `DEBUG` režimu, a zatim skriptu `perf.sh` koja pokreće sam alat.   
+Sa te lokacije, nakon što podesite prava pristupa, prvo pokrećete skriptu `build_perf.sh` koja će izgraditi projekat u `DEBUG` režimu, a zatim skriptu `perf.sh` koja pokreće sam alat.
 Kada smo odradili sve potrebne analize možemo pokrenuti `flame_graph.sh` za pravljenje "*vatrenog grafa*" i njegov prikaz u Firefox pregledaču.  
 
 ```bash
