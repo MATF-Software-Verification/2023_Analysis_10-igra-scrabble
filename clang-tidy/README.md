@@ -46,7 +46,7 @@ U našem slučaju, uključena je i opcija za statičku analizu. Kliknite na *OK*
 
 3. Kliknite na *Analyze* u glavnom meniju QtCreatora.
 
-4. Izaberite *Clang-Tidy and Clazy...* iz padajućeg menija:
+4. Izaberite *Clang-Tidy and Clazy...* iz padajućeg menija.
         
 5. Izaćiće vam prozor za izbor .cpp fajlova koje želite analizirati. 
 
