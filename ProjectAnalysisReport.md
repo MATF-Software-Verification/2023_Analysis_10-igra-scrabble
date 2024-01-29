@@ -149,7 +149,7 @@ Recimo, klikom na .cpp fajl u kom je pronađena greška `Member variable 'Custom
 
 ![](cppcheck/pictures/uninitialized.png)
 
-Takođe, alat nam sugeriše da možemo smanjiti opseg pojedinih varijabli. Umesto definisanja dve varijable u istoj deklaraciji, možemo ih definisati odvojeno ako se koriste u različitim delovima koda, ili kasnije u kodu, kao npr u fajlu *deck.cpp*:
+Takođe, alat nam sugeriše da možemo smanjiti opseg pojedinih promenljivih. Umesto definisanja dve promenljive u istoj deklaraciji, možemo ih definisati odvojeno ako se koriste u različitim delovima koda, ili kasnije u kodu, kao npr u fajlu *deck.cpp*:
 
 ![](cppcheck/pictures/scope.png)
 
@@ -160,14 +160,14 @@ Na primer u fajlu *mainwindow.cpp* promenljiva *x* se koristi i u spoljašnjoj i
 
 Ovo se može izbeći promenom imena promenljivih u jednoj od dve petlje.
 
-Na par mesta, alat prikazuje da ima funkcija koje nisu nigde korišćene, kao i jednu sintaksnu grešku:
+Na par mesta alat prikazuje da ima funkcija koje nisu nigde korišćene, kao i jednu sintaksnu grešku:
 
 ```cpp
 #if !CATCH_ARC_ENABLED
     [pool drain]; <--- syntax error
 #endif
 ```
-Ako koristimo ARC (Automatic Reference Counting), možemo ukloniti liniju [pool drain];, a upravljanje *autorelease pool*-om će se automatski obavljati. 
+Ako koristimo ARC (*Automatic Reference Counting*), možemo ukloniti liniju [pool drain];, a upravljanje *autorelease pool*-om će se automatski obavljati. 
 
 Posmatrajući sveukupnu analizu koda, primećene su određene tačke koje se mogu poboljšati. Preporučuje se izbegavanje senčanja promenljivih, jasnije imenovanje promenljivih i pažljiva organizacija koda kako bi se poboljšala čitljivost. Takođe, preporučuje se inicijalizacija članica klasa u konstruktoru kako bi se eliminisala upozorenja o neinicijalizovanim promenljivama.    
 Ova poboljšanja mogu značajno doprineti održivosti i čitljivosti koda.
@@ -189,8 +189,12 @@ Iako je moguće pokrenuti alat i iz QtCreator okruženja, Memcheck smo za analiz
 
 ### Zaključci
 
-Gledajući izveštaj, konkretno posmatrajući curenje memorije ( Referenca: [leak_summary](memcheck/pictures/report.png) ), zaključujemo da je broj definitvno izgubljenih blokova, u odnosu na ukupan broj blokova, relativno mali. 
-Većina blokova koji su izgubljeni nemaju veze sa izvornim kodom programa, već potiču iz biblioteka koje program koristi. 
+Gledamo izveštaj u kom možemo videti ukupnu količinu definitivno izgubljene memorije, indirektno izgubljene memorije, potencijalno izgubljene memorije i memorije kojoj se još uvek može pristupiti:
+
+![leak_summary](memcheck/pictures/report.png)
+
+Zaključujemo da je broj definitvno izgubljenih blokova, u odnosu na ukupan broj blokova, relativno mali. 
+Većina blokova koji su izgubljeni nemaju veze sa izvornim kodom programa, već potiču iz biblioteka koje program koristi.
 
 Jedini slučajevi gde imamo curenje memorije u izvornom kodu, jesu:  
 

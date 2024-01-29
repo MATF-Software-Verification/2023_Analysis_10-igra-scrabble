@@ -33,7 +33,7 @@ Dodatne opcije koje su korišćene prilikom pokretanja samog alata:
 
 Rezultat analize nalazi se u direktorijumu `/cppcheck` u `.txt` fajlu.
 
-Druga skripta (`cppcheck_xml.sh`), pored cppcheck analize, sadrži pokretanje alata cppcheck-htmlreport. To je alat koji generiše HTML izveštaj na temelju izlaza cppcheck analize. Time olakšava vizualni pregled pronađenih problema.  
+Druga skripta `cppcheck_xml.sh`, pored cppcheck analize koja beleži svoj rezultat u xml formatu, sadrži pokretanje alata cppcheck-htmlreport. To je alat koji generiše HTML izveštaj na temelju izlaza cppcheck analize. Time olakšava vizualni pregled pronađenih problema.  
 
 Kada skripta uspešno završi sa radom, otvara se generisan HTML fajl (`report/index.html`) u Firefox web pregledaču radi vizualnog prikaza rezultata.
 

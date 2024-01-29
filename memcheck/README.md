@@ -14,7 +14,15 @@ sudo apt-get install valgrind
 
 ### Pokretanje
 Potrebno je pozicionirati se u folder `/memcheck`.  
-Sa te lokacije, nakon što podesite prava pristupa, prvo pokrećete skriptu `build_memcheck.sh` koja će izgraditi projekat, a zatim skriptu `memcheck.sh` koja pokreće sam alat. Kada smo odradili sve potrebne analize, pokrećemo skriptu `clean_memcheck.sh` koja će ukloniti sve nepotrebne fajlove.
+Sa te lokacije, nakon što podesite prava pristupa, prvo pokrećete skriptu `build_memcheck.sh` koja će izgraditi projekat, a zatim skriptu `memcheck.sh` koja pokreće sam alat.   
+Alat pokrećemo sa dodatnim opcijama: 
+- --show-leak-kinds=all - prikaz svih vrsta curenja memorije
+- --leak-check=full - potpuno praćenje svih vrsta curenja memorije kao i mesta alokacije memorije
+- --undef-value-errors=yes - prikazivanje grešaka koje se odnose na upotrebu neinicijalizovane vrednosti
+-  --log-file="" - postavlja ime datoteke u kojoj će se sačuvati izveštaj
+
+
+Ukoliko smo zadovoljni rezultatima analize, pokrećemo skriptu `clean_memcheck.sh` koja će ukloniti sve nepotrebne fajlove.
 
 ```bash
 cd memcheck
