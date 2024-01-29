@@ -229,7 +229,7 @@ Najviše zaključaka možemo dobiti posmatrajući vizualizaciju preko KCachegrin
 
 ![](callgrind/KCacheGrind/full_report.png)
 
-Zanimaju nas funkcije koje se najviše puta pozivaju. Na levoj strani se nalaze informacije o broju pozivanja svake funkcije i broju instrukcija koje je zahtevalo njeno izvršavanje, samostalno i uključujući izvršavanja drugih funkcija koje je pozivala. Na desnoj strani možemo izabrati opciju *All Callers* i videćemo koje sve funkcije su pozivale funkciju koja nas zanima. Takodje možemo dobiti i graf poziva funkcije opcijom *Call Graph* ([Primer](callgrind/KCacheGrind/full_report.png)).
+Zanimaju nas funkcije koje se najviše puta pozivaju. Na levoj strani se nalaze informacije o broju pozivanja svake funkcije i broju instrukcija koje je zahtevalo njeno izvršavanje, samostalno i uključujući izvršavanja drugih funkcija koje je pozivala. Na desnoj strani možemo izabrati opciju *All Callers* i videćemo koje sve funkcije su pozivale funkciju koja nas zanima. Takodje možemo dobiti i graf poziva funkcije opcijom *Call Graph* ([Primer](callgrind/KCacheGrind/example.png)).
 
 Na osnovu posmatranja izveštaja, opšti utisak je da nema velikog broja poziva funkcija u delu koji je implementiran od strane programera ovog projekta.
 
