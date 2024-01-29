@@ -22,8 +22,8 @@ Ovaj alat smo za analizu koristili preko QtCreator razvojnog okruženja za neke 
 Analizirani fajlovi: *board.cpp*, *card.cpp*, *deck.cpp*, *game.cpp*, *mainwindow.cpp*, *wildcard_dialog.cpp*. 
 
 ### Zaključci
-Često upozorenje koje alat daje jeste izbegavanje korišćenja tzv. *"magičnih brojeva"* u kodu i umesto toga predlaže zamenu konstantama i promenljivama.  
-Recimo, na primeru dela koda iz fajla *board.cpp* ( Referenca: [magic_numbers.png](clang-tidy/findings/magic_numbers.png) ):  
+Često upozorenje koje alat daje jeste izbegavanje korišćenja tzv. *"magičnih brojeva"* u kodu i umesto toga predlaže zamenu imenovanim konstantama i promenljivama.  
+Ovu grešku alat uočava, recimo, na primeru dela koda iz fajla *board.cpp* ( Referenca: [magic_numbers.png](clang-tidy/findings/magic_numbers.png) ):  
 
 ```c++
 if (ind2xWord)
@@ -77,7 +77,7 @@ if (!existsWildCard)
 ```
 Ovde smo uveli imenovane konstante bonus6, bonus7, bonus8, bonusSCRABBLE, i bonusNoWildCard kako bismo zamenili tvrdo kodirane numeričke vrednosti. Ovo čini kod čitljivijim i omogućava lako ažuriranje vrednosti bonusa u budućnosti, jer se sada vrednosti nalaze na jednom mestu u kodu. Takođe smo uveli imenovane konstante SCRABBLE_WORD i wordLength kako bismo smanjili ponovno izračunavanje dužine reči i reči "SCRABBLE".
 
-Kada koristimo imenovane konstante umesto *"magičnih brojeva"*, zapravo pridajemo smisao ovim numeričkim vrednostima tako što im dajemo imena koja opisuju njihovu svrhu ili ulogu u programu. Ovaj pristup čini kod čitljivijim i održivijim.
+Kada koristimo imenovane konstante umesto *"magičnih brojeva"*, zapravo dajemo bolji smisao ovim numeričkim vrednostima tako što im dajemo imena koja opisuju njihovu svrhu ili ulogu u programu. Ovaj pristup čini kod čitljivijim i održljivijim.
 
 Takođe, jedan od čestih pronalazaka je i nedostatak *trailing return type* -a za funkcije.   
 *Trailing return types* (tipovi sa povratnom vrednošću na kraju) su moderna karakteristika C++ - a koja je uvedena u C++11 i omogućava nam da deklarišimo tip povratne vrednosti funkcije nakon liste parametara koristeći sintaksu ->.  
@@ -106,10 +106,10 @@ Menjamo kod:
 auto *button = dynamic_cast<QPushButton*>(ui->gridLayout_Wildcard->itemAt(x)->widget());
 ```
 Ova izmena koristi **dynamic_cast** umesto **static_cast** kako bi sigurno vršila dinamičko kastovanje iz bazne klase u izvedenu klasu. Takođe koristi **auto** kako bi automatski odredila tip promenljive na osnovu rezultata dinamičkog kastovanja, čime se eliminiše potreba za eksplicitnim navođenjem tipa.  
-Generalno, u kodu imamo nedovoljno korišćenje **auto** prilikom inicijalizacije pokazivača sa new. Na taj način možemo izbeći ponovno navođenje tipa.
+Generalno, u kodu imamo nedovoljno korišćenje **auto** prilikom inicijalizacije pokazivača sa **new**. Na taj način bismo mogli da izbegnemo ponovno navođenje tipa.
 
 U fajlu *game.cpp* često se javlja nepotrebna inicijalizacija niske.   
-Na primer, ovakva inicijalizacija stringa je suvišna:
+Na primer, ovakva inicijalizacija niske je suvišna:
 ```c++
 std::string word = "";
 ```
@@ -119,9 +119,10 @@ word = "neka_vrednost";
 ```
 Da bismo rešili ovo upozorenje, jednostavno treba izostaviti praznu inicijalizaciju i odmah dodeliti vrednost.
 
-Takodje u programu je na par mesta korišćena klasična **for** petlja, te nam analiza predlaže korišćenje **for each** petlje. Ovaj pristup često poboljšava čitljivost koda i smanjuje mogućnost grešaka vezanih za indekse.
+Takodje u programu je na par mesta korišćena klasična **for petlja**, te nam analiza predlaže korišćenje **for each** petlje.   
+Ovaj pristup često poboljšava čitljivost koda i smanjuje mogućnost grešaka vezanih za indekse u petljama.
 
-Na jednom mestu, u *game.cpp* imamo i potencijalno curenje memorije ( Referenca: [memory_leak.png](clang-tidy/findings/memory_leak.png) ).  
+Na jednom mestu, u *game.cpp*, imamo i potencijalno curenje memorije ( Referenca: [memory_leak.png](clang-tidy/findings/memory_leak.png) ).  
 Ako se promenljiva *constants* alocira dinamički pomoću new, trebalo bi se pobrinuti da se memorija oslobodi nakon što više nije potrebna.
 ```cpp
 Constants* constants = new Constants();
@@ -130,7 +131,7 @@ Constants* constants = new Constants();
 delete constants;
 ```
 
-Uopšteno posmatrano, primenom analize clang-tidy sa odabranom konfiguracijom, identifikovali smo brojne prilike za unapređenje u kodu. Identifikovana su mesta gde se mogu primeniti moderni pristupi u C++ programiranju, uključujući preporučene tehnike poput korišćenja auto i range-based for petlji. Ovi saveti ne samo da doprinose bezbednijem i modernijem kodu, već takođe naglašavaju strategije za poboljšanje čitljivosti, efikasnije rukovanje niskama i smanjenje potencijalnih rizika od grešaka, posebno u vezi sa indeksiranjem i upravljanjem memorijom.
+Uopšteno posmatrano, primenom statičke analize clang-tidy alatom sa odabranom konfiguracijom, identifikovali smo brojne prilike za unapređenje u kodu. Identifikovana su mesta gde se mogu primeniti moderni pristupi u C++ programiranju, uključujući preporučene tehnike poput korišćenja auto i range-based for petlji. Ovi saveti ne samo da doprinose bezbednijem i modernijem kodu, već takođe naglašavaju strategije za poboljšanje čitljivosti, efikasnije rukovanje niskama i smanjenje potencijalnih rizika od grešaka, posebno u vezi sa indeksiranjem i upravljanjem memorijom.
 
 ## Cppcheck
 Cppcheck je alat za statičku analizu C i C++ koda, čija je osnovna uloga otkrivanje potencijalnih problema pre pokretanja programa. Pruža programerima informacije o kvalitetu njihovog koda, pa time olakšava proces poboljšanja. Ovaj alat je posebno koristan za pronalaženje curenja memorije, otkrivanje neinicijalizovanih promenljivih, identifikaciju potencijalnih problema s pokazivačima, te pomoć u održavanju konzistentnosti koda.
@@ -142,8 +143,8 @@ Cppcheck smo za analizu koristili preko terminala prateći postupak pokretanja i
 
 ### Zaključci
 
-Alat nam daje do znanja da na par mesta u kodu imamo neinicijalizovane promenjive u konstruktoru. 
-Korisna funkcionalnost HTML izveštaja je povezivanje prijavljenog upozorenja sa tačnim mestom u kodu gde je isto pronađeno.
+Alat nam daje do znanja da na par mesta u kodu imamo neinicijalizovane promenjive u konstruktoru.   
+Korisna funkcionalnost HTML izveštaja je povezivanje prijavljenog upozorenja sa tačnim mestom u kodu gde je isto pronađeno.  
 Recimo, klikom na .cpp fajl u kom je pronađena greška `Member variable 'CustomButton_Box::coordinate_x' is not initialized in the constructor.` dobijamo:
 
 ![](cppcheck/pictures/uninitialized.png)
@@ -152,7 +153,7 @@ Takođe, alat nam sugeriše da možemo smanjiti opseg pojedinih varijabli. Umest
 
 ![](cppcheck/pictures/scope.png)
 
-Često upozorenje je i tzv. *"senčanje"(shadowing)* promenljivih. Javlja se kada imamo dve promenljive s istim imenom u istom opsegu, što može dovesti do nesporazuma u čitanju i održavanju koda. 
+Često upozorenje je i tzv. *"senčanje" (shadowing)* promenljivih. Javlja se kada imamo dve promenljive s istim imenom u istom opsegu, što može dovesti do nesporazuma u čitanju i održavanju koda.   
 Na primer u fajlu *mainwindow.cpp* promenljiva *x* se koristi i u spoljašnjoj i u unutrašnjoj petlji, te dolazi do njenog senčanja:
 
 ![](cppcheck/pictures/shadowing.png)
@@ -168,7 +169,7 @@ Na par mesta, alat prikazuje da ima funkcija koje nisu nigde korišćene, kao i 
 ```
 Ako koristimo ARC (Automatic Reference Counting), možemo ukloniti liniju [pool drain];, a upravljanje *autorelease pool*-om će se automatski obavljati. 
 
-Posmatrajući sveukupnu analizu koda, primećene su određene tačke koje se mogu poboljšati. Preporučuje se izbegavanje senčanja promenljivih, jasnije imenovanje promenljivih i pažljiva organizacija koda kako bi se poboljšala čitljivost. Takođe, preporučuje se inicijalizacija članica klase u konstruktoru kako bi se eliminisala upozorenja o neinicijalizovanim promenljivama.   
+Posmatrajući sveukupnu analizu koda, primećene su određene tačke koje se mogu poboljšati. Preporučuje se izbegavanje senčanja promenljivih, jasnije imenovanje promenljivih i pažljiva organizacija koda kako bi se poboljšala čitljivost. Takođe, preporučuje se inicijalizacija članica klasa u konstruktoru kako bi se eliminisala upozorenja o neinicijalizovanim promenljivama.    
 Ova poboljšanja mogu značajno doprineti održivosti i čitljivosti koda.
 
 ## Valgrind
