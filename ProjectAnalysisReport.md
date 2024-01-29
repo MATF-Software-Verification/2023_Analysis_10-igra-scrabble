@@ -195,7 +195,7 @@ Iako je moguće pokrenuti alat i iz QtCreator okruženja, Memcheck smo za analiz
 
 ### Zaključci
 
-Gledamo izveštaj u kom možemo videti ukupnu količinu definitivno izgubljene memorije, indirektno izgubljene memorije, potencijalno izgubljene memorije i memorije kojoj se još uvek može pristupiti:
+Posmatrajući izveštaj u kom možemo videti ukupnu količinu definitivno izgubljene memorije, indirektno izgubljene memorije, potencijalno izgubljene memorije i memorije kojoj se još uvek može pristupiti:
 
 ![leak_summary](memcheck/pictures/report.png)
 
