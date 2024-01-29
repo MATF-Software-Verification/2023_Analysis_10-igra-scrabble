@@ -134,12 +134,12 @@ delete constants;
 Uopšteno posmatrano, primenom statičke analize clang-tidy alatom sa odabranom konfiguracijom, identifikovali smo brojne prilike za unapređenje u kodu. Identifikovana su mesta gde se mogu primeniti moderni pristupi u C++ programiranju, uključujući preporučene tehnike poput korišćenja auto i range-based for petlji. Ovi saveti ne samo da doprinose bezbednijem i modernijem kodu, već takođe naglašavaju strategije za poboljšanje čitljivosti, efikasnije rukovanje niskama i smanjenje potencijalnih rizika od grešaka, posebno u vezi sa indeksiranjem i upravljanjem memorijom.
 
 ## Cppcheck
-Cppcheck je alat za statičku analizu C i C++ koda, čija je osnovna uloga otkrivanje potencijalnih problema pre pokretanja programa. Pruža programerima informacije o kvalitetu njihovog koda, pa time olakšava proces poboljšanja. Ovaj alat je posebno koristan za pronalaženje curenja memorije, otkrivanje neinicijalizovanih promenljivih, identifikaciju potencijalnih problema s pokazivačima, te pomoć u održavanju konzistentnosti koda.
+*Cppcheck* je alat za statičku analizu C i C++ koda, čija je osnovna uloga otkrivanje potencijalnih problema pre pokretanja programa. Pruža programerima informacije o kvalitetu njihovog koda, pa time olakšava proces poboljšanja. Ovaj alat je posebno koristan za pronalaženje curenja memorije, otkrivanje neinicijalizovanih promenljivih, identifikaciju potencijalnih problema s pokazivačima, te pomoć u održavanju konzistentnosti koda.
 
-Jednostavnost korišćenja, jasni izveštaji, mogućnost vizualizacije rezultata kao i jednostavno postavljanje pravila i filtera čine cppcheck jako korisnim alatom koji doprinosti efikasnijem procesu razvoja.
+Jednostavnost korišćenja, jasni izveštaji, mogućnost vizualizacije rezultata kao i jednostavno postavljanje pravila i filtera čine *Cppcheck* jako korisnim alatom koji doprinosti efikasnijem procesu razvoja.
 
 ### Postupak analize
-Cppcheck smo za analizu koristili preko terminala prateći postupak pokretanja iz [README.md](cppcheck/README.md).  
+*Cppcheck* smo za analizu koristili preko terminala prateći postupak pokretanja iz [README.md](cppcheck/README.md).  
 
 ### Zaključci
 
@@ -188,10 +188,10 @@ U sklopu naše analize, koristićemo dva Valgrind alata: Memcheck i Callgrind.
 
 ## Memcheck
 Valgrind-ov alat *Memcheck* je moćan alat koji pomaže u  identifikaciji curenja memorije, čitanju neinicijalizovane memorije i otkrivanju drugih grešaka vezanih za upravljanje memorijom u programima napisanim u C i C++ -u.  
-Memcheck, kroz instrumentalizaciju izvršnog fajla, otkriva probleme koji mogu dovesti do nepredvidivog ponašanja programa, pružajući programerima detaljne informacije kako bi poboljšali stabilnost i pouzdanost svog koda.
+*Memcheck*, kroz instrumentalizaciju izvršnog fajla, otkriva probleme koji mogu dovesti do nepredvidivog ponašanja programa, pružajući programerima detaljne informacije kako bi poboljšali stabilnost i pouzdanost svog koda.
 
 ### Postupak profajliranja
-Iako je moguće pokrenuti alat i iz QtCreator okruženja, Memcheck smo za analizu koristili preko terminala prateći postupak pokretanja iz [README.md](memcheck/README.md).  
+Iako je moguće pokrenuti alat i iz QtCreator okruženja, *Memcheck* smo za analizu koristili preko terminala prateći postupak pokretanja iz [README.md](memcheck/README.md).  
 
 ### Zaključci
 
@@ -221,7 +221,7 @@ Za grafičku vizuelizaciju koristimo dodatni alat *KCachegrind*, koji olakšava 
 
 ### Postupak profajliranja
 
-Callgrind smo koristili preko terminala prateći postupak pokretanja iz [README.md](callgrind/README.md).  
+*Callgrind* smo koristili preko terminala prateći postupak pokretanja iz [README.md](callgrind/README.md).  
 
 ### Zaključci
 
@@ -229,7 +229,7 @@ Najviše zaključaka možemo dobiti posmatrajući vizualizaciju preko KCachegrin
 
 ![](callgrind/KCacheGrind/full_report.png)
 
-Zanimaju nas funkcije koje se najviše puta pozivaju. Na levoj strani se nalaze informacije o broju pozivanja svake funkcije i broju instrukcija koje je zahtevalo njeno izvršavanje, samostalno i uključujući izvršavanja drugih funkcija koje je pozivala. Na desnoj strani možemo izabrati opciju *All Callers* i videćemo koje sve funkcije su pozivale funkciju koja nas zanima. Takodje možemo dobiti i graf poziva funkcije opcijom *Call Graph*. [Primer](callgrind/KCacheGrind/full_report.png).
+Zanimaju nas funkcije koje se najviše puta pozivaju. Na levoj strani se nalaze informacije o broju pozivanja svake funkcije i broju instrukcija koje je zahtevalo njeno izvršavanje, samostalno i uključujući izvršavanja drugih funkcija koje je pozivala. Na desnoj strani možemo izabrati opciju *All Callers* i videćemo koje sve funkcije su pozivale funkciju koja nas zanima. Takodje možemo dobiti i graf poziva funkcije opcijom *Call Graph* ([Primer](callgrind/KCacheGrind/full_report.png)).
 
 Na osnovu posmatranja izveštaja, opšti utisak je da nema velikog broja poziva funkcija u delu koji je implementiran od strane programera ovog projekta.
 

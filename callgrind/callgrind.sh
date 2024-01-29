@@ -1,10 +1,12 @@
 #!/usr/bin/bash
 
+set -e
+
 # Podrazumevane vrednosti za opcije
 ANNOTATE=false
 KCACHEGRIND=false
 
-OUTPUT_FILE="callgrind_$RANDOM.out"
+OUTPUT_FILE="callgrind_$(date +%s).out"
 
 QMAKE=/usr/lib/qt5/bin/qmake
 
