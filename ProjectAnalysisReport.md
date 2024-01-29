@@ -175,13 +175,19 @@ Ova poboljšanja mogu značajno doprineti održivosti i čitljivosti koda.
 ## Valgrind
 
 Valgrind je svestran alat za dinamičku analizu mašinskog koda, snimljenog kao objektni modul ili izvršivi program. Ova platforma omogućava automatsko otkrivanje problema sa memorijom i procesima, čineći ga ključnim za otkrivanje i ispravljanje grešaka u softverskim aplikacijama.   
-Pored toga, Valgrind se može koristiti i kao alat za stvaranje novih alata, a distribucija uključuje nekoliko korisnih alata kao što su Memcheck za detekciju memorijskih grešaka, Hellgrind i DRD za detekciju grešaka u višenitnim programima, Cachegrind za optimizaciju keš memorije, Callgrind za generisanje grafa skrivene memorije i predikciju skoka, te Massif za optimizaciju korišćenja dinamičke memorije.   
-Iako Valgrind pruža izuzetno korisne informacije, analiza programa ovim alatom može rezultirati povećanjem vremena izvršavanja programa, obično između 20 i 100 puta. 
+Pored toga, Valgrind se može koristiti i kao alat za stvaranje novih alata, a distribucija uključuje nekoliko korisnih alata kao što su: 
+- Memcheck (koristi se za detektovanje memorijskih grešaka)
+- Massif (koristi se za praćenje rada dinamičke memorije)
+- Callgrind (koristi se za profajliranje funkcija)
+- Cachegrind (koristi se za profajliranje ke[ memorije])
+- Helgrind i DRD (koristi se kao detektor grešaka u radu sa nitima)
+
+Iako Valgrind pruža izuzetno korisne informacije, analiza programa ovim alatom može rezultirati povećanjem vremena izvršavanja programa, obično između 5 i 100 puta. 
 
 U sklopu naše analize, koristićemo dva Valgrind alata: Memcheck i Callgrind.
 
 ## Memcheck
-Valgrind-ov alat Memcheck je moćan alat koji pomaže u  identifikaciji curenja memorije, čitanju neinicijalizovane memorije i otkrivanju drugih grešaka vezanih za upravljanje memorijom u programima napisanim u C i C++ -u.  
+Valgrind-ov alat *Memcheck* je moćan alat koji pomaže u  identifikaciji curenja memorije, čitanju neinicijalizovane memorije i otkrivanju drugih grešaka vezanih za upravljanje memorijom u programima napisanim u C i C++ -u.  
 Memcheck, kroz instrumentalizaciju izvršnog fajla, otkriva probleme koji mogu dovesti do nepredvidivog ponašanja programa, pružajući programerima detaljne informacije kako bi poboljšali stabilnost i pouzdanost svog koda.
 
 ### Postupak profajliranja
