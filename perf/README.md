@@ -16,8 +16,8 @@ Ova komanda instalira linux-tools paket za trenutnu verziju jezgra ($(uname -r))
 
 ### Pokretanje
 Nakon kloniranja repozitorijuma potrebno je pozicionirati se u folder `/perf`.
-Sa te lokacije, nakon što podesite prava pristupa, prvo pokrećete skriptu `build_perf.sh` koja će izgraditi projekat u `DEBUG` režimu, a zatim skriptu `perf.sh` koja pokreće sam alat.
-Kada smo odradili sve potrebne analize možemo pokrenuti `flame_graph.sh` za pravljenje "*vatrenog grafa*" i njegov prikaz u Firefox pregledaču.  
+Sa te lokacije, nakon što podesite prava pristupa, prvo pokrećete skriptu `build_perf.sh` koja će izgraditi projekat u `DEBUG` režimu, a zatim skriptu `perf.sh` koja pokreće sam alat.  
+Ukoliko smo zadovoljni rezultatom analize možemo pokrenuti `flame_graph.sh` koja pravi "*plameni graf*" i prikazuje ga u Firefox pregledaču.  
 
 ```bash
 cd perf
@@ -34,4 +34,8 @@ chmod +x clean_perf.sh
 
 ./clean_perf.sh
 ```
+Perf se može koristiti za profilisanje uzimanjem uzorka (*sampling*) na nivou niti, procesa ili CPU kroz komande `record`, `report` i `annotate`. Profili će podrazumevao biti sačuvani u fajlu `perf.data` i mogu biti analizirani koristeći komande `report` i `annotate`. Upravo ćemo ovu funkcionalnost iskoristiti u našoj analizi.
+
+Za vizuelizaciju podataka dobijenih naredbom `perf report` koristićemo gore pomenuti "*plameni graf*".
+
 Na kraju pokrećemo skriptu `clean_perf.sh` koja će ukloniti sve nepotrebne fajlove.  

@@ -234,19 +234,15 @@ Zanimaju nas funkcije koje se najviše puta pozivaju. Na levoj strani se nalaze 
 Na osnovu posmatranja izveštaja, opšti utisak je da nema velikog broja poziva funkcija u delu koji je implementiran od strane programera ovog projekta.
 
 ## Perf
-Alat *perf* predstavlja moćan alat za analizu performansi na Linux sistemima. Ovaj alat omogućava programerima da analiziraju performanse njihovog koda kako bi identifikovali potencijalne uzroke sporosti ili resurskih problema.  
-Glavna upotreba alata Perf je identifikacija i eliminacija uskih grla u performansama softverskog sistema. Kroz analizu podataka o vremenu izvršavanja, programeri mogu pronaći delove koda koji zahtevaju optimizaciju, kao i lokacije gde se resursi (CPU, memorija, disk itd.) troše neefikasno.  
+Alat *Perf* predstavlja moćan alat za analizu performansi na Linux sistemima. Ovaj alat omogućava programerima da analiziraju performanse njihovog koda kako bi identifikovali potencijalne uzroke usporenja ili probleme sa resursima.  
+Glavna upotreba alata *Perf* je identifikacija i eliminacija uskih grla u performansama softverskog sistema. Kroz analizu podataka o vremenu izvršavanja programeri mogu pronaći delove koda koji zahtevaju optimizaciju, kao i lokacije gde se resursi (CPU, memorija, disk itd.) troše neefikasno.  
 
-U kombinaciji sa alatom *perf* koristi se često *FlameGraph* - moćan vizuelni alat. FlameGraph pruža intuitivan prikaz vremena izvršavanja različitih delova koda u obliku "*plamenog grafa*".   
-Ovaj grafički prikaz olakšava identifikaciju glavnih uzroka usporenja i optimizaciju koda.
-Kada se koristi u vezi sa perf alatom, FlameGraph pruža detaljan uvid u profilisanje performansi, omogućavajući programerima da brzo identifikuju gde se resursi troše i koje funkcije uzimaju najviše vremena tokom izvršavanja programa.
+U kombinaciji sa alatom *Perf* koristi se često *FlameGraph* - moćan alat za vizualizaciju. FlameGraph pruža intuitivan prikaz vremena izvršavanja različitih delova koda u obliku "*plamenog grafa*".   
+Ovaj grafički prikaz olakšava identifikaciju glavnih uzroka usporenja i olakšava optimizaciju koda.
+Kada se koristi zajedno sa *Perf* alatom, *FlameGraph* omogućava programerima da brzo identifikuju gde se resursi troše i koje funkcije uzimaju najviše vremena tokom izvršavanja programa.
 
 ### Postupak profajliranja
-Perf smo za analizu koristili preko terminala prateći postupak pokretanja iz [README.md](perf/README.md).  
-
-Perf se može koristiti za prikupljanje profila (sampling) na nivou niti, procesa ili CPU kroz komande `record`, `report` i `annotate`. Profili će podrazumevao biti sačuvani u fajlu `perf.data` i mogu biti analizirani koristeći komande `report` i `annotate`. Upravo ćemo ovu funkcionalnost iskoristiti u našoj analizi.
-
-Za vizuelizaciju podataka dobijenih naredbom `perf report` koristićemo gore pomenuti "*plameni graf*".
+*Perf* smo za analizu koristili preko terminala prateći postupak pokretanja iz [README.md](perf/README.md).  
 
 ### Zaključci
 Na slici ispod možemo videti rezultat poziva:
@@ -259,20 +255,22 @@ Koristili smo `perf record` komandu sa opcijom `--call-graph dwarf` da bi generi
 ![Perf izvestaj](perf/pictures/perf.png)
 
 Kolona "*Self*" prikazuje procenat vremena provedenog direktno u trenutnoj funkciji u odnosu na ukupno vreme izvršavanja programa.  
-Prema izveštaju nemamo funkciju koja preveliki procenat vremena troše u svom sopstvenom kontekstu.  
+Gledajući izveštaj, vidimo da nemamo funkcije koje preveliki procenat vremena troše u svom sopstvenom kontekstu.  
 
 U koloni "*Children*" vidimo procente koji ukazuju na procentualni udeo vremena provedenog u pozivanim funkcijama u odnosu na ukupno vreme provedeno u trenutnoj funkciji. Ova vrednost prikazuje koliki je doprinos pozvanih funkcija ukupnom vremenu provedenom u trenutnoj funkciji.  
-Gledajući izveštaj, očekivano je da je broj izvršavanje dece funkcije *main* najveći. Takodje, postoji još par funkcija gde se može razmotriti optimizacija broja poziva, medjutim uglavnom je prijavljeno ponašanje u skladu sa funkcionalnostima.
+Gledajući izveštaj, očekivano je da je broj izvršavanje dece funkcije *main* najveći. Takodje, postoji još par funkcija, pisanih od strane autora projekta, gde se može razmotriti optimizaciju broja poziva. Uglavnom je prijavljeno ponašanje u skladu sa funkcionalnostima samih funkcija.
 
-Dijagram prikazuje populaciju uzoraka na x osi, a dubinu steka na y osi. Svaka funkcija je jedan pravougaonik, širine relativne broju uzoraka. 
+U nastavku vidimo "*plameni graf*" dobijen na osnovu uzimanja uzorka alatom *Perf*.
 
 ![Flame graph](perf/pictures/flame_graph.png)
+
+Dijagram prikazuje populaciju uzoraka na x osi, a dubinu steka na y osi. Svaka funkcija je jedan pravougaonik, širine relativne broju uzoraka. 
 
 
 ## Zaključak
 
-Kroz analizu projekta i posmatranje svih pronalaska upotrebljenih alata opšti zaključak je da u projektu nisu pronađeni veći propusti koji mogu značajno uticati na njegovu funkcionalnost. 
+Kroz analizu projekta kao i posmatranjem svih pronalaska upotrebljenih alata opšti zaključak je da u projektu nisu pronađeni veći propusti koji mogu značajno uticati na njegovu funkcionalnost. 
 
-Treba istaći koliko je primena alata za verifikaciju važan deo razvoja softvera.   
+Treba istaći koliko je primena alata za verifikaciju važan deo procesa razvoja softvera.   
 Kroz jednostavnu integraciju ovih alata u projekat, identifikujemo greške kao što su curenje memorije, smanjena čitljivost i redudantnost koda, koje u nekim scenarijima mogu imati ozbiljne posledice.  
 Redovno testiranje tokom procesa programiranja ima ključnu ulogu u smanjenju verovatnoće pojave grešaka.
